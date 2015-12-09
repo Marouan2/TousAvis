@@ -21,10 +21,6 @@ private int nbMembres = 0;
 private int nbLivres = 0;
 private int nbFilms = 0;
 
-	@Test
-	public void testSocialNetwork() {
-		fail("Not yet implemented");
-	}
 
 	@Test
 	public void testNbMembers() throws BadEntry, MemberAlreadyExists {
