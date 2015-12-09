@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<uml:Model xmi:version="20131001" xmlns:xmi="http://www.omg.org/spec/XMI/20131001" xmlns:uml="http://www.eclipse.org/uml2/5.0.0/UML" xmi:id="_AYDz8JwWEeW9YvqkMuZmcw" name="NewModel">
+  <packagedElement xmi:type="uml:Class" xmi:id="_zvzVIJwkEeWzUprKylVFkg" name="SocialNetwork">
+    <ownedOperation xmi:id="_SX3a4Jw2EeW1bd5sq8HrpQ" name="addItemBook">
+      <ownedParameter xmi:id="_w237AJw2EeW1bd5sq8HrpQ" name="pseudo">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+      </ownedParameter>
+      <ownedParameter xmi:id="_msM2wJw2EeW1bd5sq8HrpQ" name="password">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+      </ownedParameter>
+      <ownedParameter xmi:id="_0lHuYJw2EeW1bd5sq8HrpQ" name="titre">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+      </ownedParameter>
+      <ownedParameter xmi:id="_4QCg8Jw2EeW1bd5sq8HrpQ" name="genre">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+      </ownedParameter>
+      <ownedParameter xmi:id="_7ULnYJw2EeW1bd5sq8HrpQ" name="auteur">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+      </ownedParameter>
+      <ownedParameter xmi:id="_-3UW8Jw2EeW1bd5sq8HrpQ" name="nbPages">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#int"/>
+      </ownedParameter>
+      <redefinedOperation href="pathmap://UML_METAMODELS/UML.metamodel.uml#Package-createOwnedEnumeration"/>
+    </ownedOperation>
+    <ownedOperation xmi:id="_VVf0MJw3EeW1bd5sq8HrpQ" name="addItemFilm">
+      <ownedParameter xmi:id="_or62UZw3EeW1bd5sq8HrpQ" name="pseudo">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+      </ownedParameter>
+      <ownedParameter xmi:id="_or62UJw3EeW1bd5sq8HrpQ" name="password">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+      </ownedParameter>
+      <ownedParameter xmi:id="_or62Upw3EeW1bd5sq8HrpQ" name="titre">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+      </ownedParameter>
+      <ownedParameter xmi:id="_or62U5w3EeW1bd5sq8HrpQ" name="genre">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+      </ownedParameter>
+      <ownedParameter xmi:id="_or62VJw3EeW1bd5sq8HrpQ" name="realisateur">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+      </ownedParameter>
+      <ownedParameter xmi:id="_or7dYJw3EeW1bd5sq8HrpQ" name="scenariste">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+      </ownedParameter>
+      <ownedParameter xmi:id="_or7dYZw3EeW1bd5sq8HrpQ" name="duree">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#int"/>
+      </ownedParameter>
+    </ownedOperation>
+    <ownedOperation xmi:id="_9quLgJw3EeW1bd5sq8HrpQ" name="addMember">
+      <ownedParameter xmi:id="_Pr9jYJw4EeW1bd5sq8HrpQ" name="pseudo">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+      </ownedParameter>
+      <ownedParameter xmi:id="_Pr-KcJw4EeW1bd5sq8HrpQ" name="password">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+      </ownedParameter>
+      <ownedParameter xmi:id="_Pr-KcZw4EeW1bd5sq8HrpQ" name="profil">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+      </ownedParameter>
+    </ownedOperation>
+    <ownedOperation xmi:id="_g437UJw4EeW1bd5sq8HrpQ" name="consultItems">
+      <ownedParameter xmi:id="_pRqyQJw4EeW1bd5sq8HrpQ" name="nom">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+      </ownedParameter>
+    </ownedOperation>
+    <ownedOperation xmi:id="_gVWsoJw6EeW1bd5sq8HrpQ" name="Operation_5"/>
+  </packagedElement>
+</uml:Model>
