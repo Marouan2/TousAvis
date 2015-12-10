@@ -5,7 +5,7 @@ public class Book extends Item {
 	private int nbPages;
 	
 	public Book(String pseudo, String password, String titre, String genre, String auteur, int nbPages) {
-		
+		////bonjour
 		super(pseudo, password, titre, genre);
 		this.auteur = auteur;
 		this.nbPages = nbPages;
