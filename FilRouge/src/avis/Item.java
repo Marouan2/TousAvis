@@ -3,8 +3,8 @@ package avis;
 public class Item {
 	private String pseudo;
 	private String password;
-private String titre;
-private String genre;
+	private String titre;
+	private String genre;
 
 
 public Item(String pseudo, String password, String titre, String genre) {
