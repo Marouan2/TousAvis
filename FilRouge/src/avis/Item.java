@@ -1,47 +1,47 @@
 package avis;
 
+import java.util.LinkedList;
+
+import exception.BadEntry;
+
 public class Item {
-	private String pseudo;
-	private String password;
-private String titre;
-private String genre;
+	private String titre;
+	private String genre;
+	private LinkedList<Review> reviews ;	
 
+	public Item(String titre, String genre)throws BadEntry {
+		if(titre==null || titre.length()<1)
+			throw new BadEntry("le titre est obligatoire et contient au moins 1 caractère");
+		if(genre==null)
+			throw new BadEntry("le titre est obligatoire");
+		this.titre = titre;
+		this.genre = genre;
+		reviews = new LinkedList<Review>();
+	}
 
-public Item(String pseudo, String password, String titre, String genre) {
-	this.pseudo = pseudo;
-	this.password = password;
-	this.titre = titre;
-	this.genre = genre;
-}
+	
+	public String getTitre() {
+		return titre;
+	}
 
-public String getPseudo() {
-	return pseudo;
-}
+	public void setTitre(String titre) {
+		this.titre = titre;
+	}
 
-public void setPseudo(String pseudo) {
-	this.pseudo = pseudo;
-}
+	public String getGenre() {
+		return genre;
+	}
 
-public String getPassword() {
-	return password;
-}
+	public void setGenre(String genre) {
+		this.genre = genre;
+	}
 
-public void setPassword(String password) {
-	this.password = password;
-}
+	public LinkedList<Review> getReviews() {
+		return reviews;
+	}
 
-public String getTitre() {
-	return titre;
-}
-public void setTitre(String titre) {
-	this.titre = titre;
-}
-public String getGenre() {
-	return genre;
-}
-public void setGenre(String genre) {
-	this.genre = genre;
-}
-
+	public void setReviews(LinkedList<Review> reviews) {
+		this.reviews = reviews;
+	}
 
 }

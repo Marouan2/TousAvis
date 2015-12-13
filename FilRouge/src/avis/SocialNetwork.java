@@ -135,12 +135,13 @@ public class SocialNetwork {
 	 * 
 	 */
 	public void addItemFilm(String pseudo, String password, String titre, String genre, String realisateur, String scenariste, int duree) throws BadEntry, NotMember, ItemFilmAlreadyExists {
-//		Film nouveauFilm = new Film(pseudo, password, titre, genre, realisateur, scenariste, duree);
-//		 for (Item m : items) {
-//		 if (m.equals(nouveauFilm))
-//		 throw new ItemFilmAlreadyExists();
-//		 };
-//		 items.add(nouveauFilm); 
+		Member member = new Member(pseudo, password);
+		Film nouveauFilm = new Film(titre, genre, realisateur, scenariste, duree);
+		 for (Item m : items) {
+		 if (m.equals(nouveauFilm))
+		 throw new ItemFilmAlreadyExists();
+		 };
+		 items.add(nouveauFilm); 
 		
 	}
 
@@ -169,12 +170,12 @@ public class SocialNetwork {
 	 * 
 	 */
 	public void addItemBook(String pseudo, String password, String titre, String genre, String auteur, int nbPages) throws  BadEntry, NotMember, ItemBookAlreadyExists{
-//		Book nouveauBook = new Book(pseudo, password, titre, genre, auteur, nbPages);
-//		 for (Item m : items) {
-//		 if (m.equals(nouveauBook))
-//		 throw new ItemBookAlreadyExists();
-//		 };
-//		 items.add(nouveauBook);
+		Book nouveauBook = new Book(titre, genre, auteur, nbPages);
+		 for (Item m : items) {
+		 if (m.equals(nouveauBook))
+		 throw new ItemBookAlreadyExists();
+		 };
+		 items.add(nouveauBook);
 	}
 
 	/**
