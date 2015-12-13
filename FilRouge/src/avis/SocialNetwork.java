@@ -41,13 +41,13 @@ import exception.NotMember;
 
 public class SocialNetwork {
 
-private ArrayList<Member> membres = new ArrayList<>();
+private LinkedList<Member> membres = new LinkedList<>();
 //
-//private ArrayList<Film> films = new ArrayList<>();
+private LinkedList<Film> films = new LinkedList<>();
 //
-//private ArrayList<Book> books = new ArrayList<>();
+private LinkedList<Book> books = new LinkedList<>();
 
-private ArrayList<Item> items = new ArrayList<>();
+private LinkedList<Item> items = new LinkedList<>();
 
 
 
@@ -65,8 +65,7 @@ private ArrayList<Item> items = new ArrayList<>();
 	 * @return le nombre de membres
 	 */
 	public int nbMembers() {
-		return 0;
-		//return membres.size();
+		return membres.size();
 	}
 
 	/**
@@ -75,13 +74,12 @@ private ArrayList<Item> items = new ArrayList<>();
 	 * @return le nombre de films
 	 */
 	public int nbFilms() {
-		return 0;
-//		int n = 0;
-//		 for (Item i : items) {
-//		 if (i instanceof Film)
-//		 n++;
-//		 };
-//		 return n; 
+		int n = 0;
+		 for (Item i : items) {
+		 if (i instanceof Film)
+		 n++;
+		 };
+		 return n; 
 	}
 
 	/**
@@ -90,13 +88,12 @@ private ArrayList<Item> items = new ArrayList<>();
 	 * @return le nombre de livres
 	 */
 	public int nbBooks() {
-		return 0;
-//		int n = 0;
-//		 for (Item i : items) {
-//		 if (i instanceof Book)
-//		 n++;
-//		 };
-//		 return n; 
+		int n = 0;
+		 for (Item i : items) {
+		 if (i instanceof Book)
+		 n++;
+		 };
+		 return n; 
 	}
 
 
@@ -118,14 +115,14 @@ private ArrayList<Item> items = new ArrayList<>();
 	 * 
 	 */
 	public void addMember(String pseudo, String password, String profil) throws BadEntry, MemberAlreadyExists  {
-//		Member nouveauMembre = new Member(pseudo, password, profil);
-//		 for (Member m : membres) {
-//		 if (m.equals(nouveauMembre))
-//		 throw new MemberAlreadyExists();
-//		 if(m.getPseudo().equals(""))
-//			 throw new BadEntry("Error pseudo null");
-//		 };
-//		 membres.add(nouveauMembre); 
+		Member nouveauMembre = new Member(pseudo, password, profil);
+		 for (Member m : membres) {
+		 if (m.equals(nouveauMembre))
+		 throw new MemberAlreadyExists();
+		 if(m.getPseudo().equals(""))
+			 throw new BadEntry("Error pseudo null");
+		 };
+		 membres.add(nouveauMembre); 
 	}
 
 
@@ -155,12 +152,13 @@ private ArrayList<Item> items = new ArrayList<>();
 	 * 
 	 */
 	public void addItemFilm(String pseudo, String password, String titre, String genre, String realisateur, String scenariste, int duree) throws BadEntry, NotMember, ItemFilmAlreadyExists {
-//		Film nouveauFilm = new Film(pseudo, password, titre, genre, realisateur, scenariste, duree);
-//		 for (Item m : items) {
-//		 if (m.equals(nouveauFilm))
-//		 throw new ItemFilmAlreadyExists();
-//		 };
-//		 items.add(nouveauFilm); 
+		Member member = new Member(pseudo, password);
+		Film nouveauFilm = new Film(titre, genre, realisateur, scenariste, duree);
+		 for (Item m : items) {
+		 if (m.equals(nouveauFilm))
+		 throw new ItemFilmAlreadyExists();
+		 };
+		 items.add(nouveauFilm); 
 		
 	}
 
@@ -189,12 +187,12 @@ private ArrayList<Item> items = new ArrayList<>();
 	 * 
 	 */
 	public void addItemBook(String pseudo, String password, String titre, String genre, String auteur, int nbPages) throws  BadEntry, NotMember, ItemBookAlreadyExists{
-//		Book nouveauBook = new Book(pseudo, password, titre, genre, auteur, nbPages);
-//		 for (Item m : items) {
-//		 if (m.equals(nouveauBook))
-//		 throw new ItemBookAlreadyExists();
-//		 };
-//		 items.add(nouveauBook);
+		Book nouveauBook = new Book(titre, genre, auteur, nbPages);
+		 for (Item m : items) {
+		 if (m.equals(nouveauBook))
+		 throw new ItemBookAlreadyExists();
+		 };
+		 items.add(nouveauBook);
 	}
 
 	/**
