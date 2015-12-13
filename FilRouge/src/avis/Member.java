@@ -1,5 +1,7 @@
 package avis;
 
+import java.util.LinkedList;
+
 public class Member  {
 	private String pseudo;
 	private String password;
@@ -30,6 +32,19 @@ public class Member  {
 	}
 	public void setProfil(String profil) {
 		this.profil = profil;
+	}
+	public boolean itExists(LinkedList<Member> members){
+		for (Member member : members){
+			if (member.equals(this))
+				return true;
+		}
+		return false;
+	}
+	public boolean badPseudo(String pseudo)
+	{
+		if(pseudo==""||pseudo==null)
+			return true;
+		return false;
 	}
 	
 }

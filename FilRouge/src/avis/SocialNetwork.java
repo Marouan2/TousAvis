@@ -1,9 +1,6 @@
 package avis;
 
-import java.util.ArrayList;
 import java.util.LinkedList;
-
-
 import exception.BadEntry;
 import exception.ItemFilmAlreadyExists;
 import exception.ItemBookAlreadyExists;
@@ -12,11 +9,10 @@ import exception.NotItem;
 import exception.NotMember;
 
 /** 
- * @author A. Beugnard, 
- * @author G. Ouvradou
- * @author B. Prou
- * @date février - mars 2011
- * @version V0.6
+ * @author Kadry Mohammadou Aminou, 
+ * @author Marouan Marouan
+ * @date février - mars 2015
+ * @version V0.7
  */
 
 
@@ -40,14 +36,10 @@ import exception.NotMember;
  */
 
 public class SocialNetwork {
-
-private ArrayList<Member> membres = new ArrayList<>();
-//
-//private ArrayList<Film> films = new ArrayList<>();
-//
-//private ArrayList<Book> books = new ArrayList<>();
-
-private ArrayList<Item> items = new ArrayList<>();
+	
+	LinkedList <Film> films;
+	LinkedList <Book> books;
+	LinkedList <Member> members;
 
 
 
@@ -57,6 +49,9 @@ private ArrayList<Item> items = new ArrayList<>();
 	 */
 
 	public SocialNetwork() {
+		films = new LinkedList<Film>();
+		books = new LinkedList<Book>();
+		members = new LinkedList<Member>();
 	}
 
 	/**
@@ -65,8 +60,7 @@ private ArrayList<Item> items = new ArrayList<>();
 	 * @return le nombre de membres
 	 */
 	public int nbMembers() {
-		return 0;
-		//return membres.size();
+		return members.size();
 	}
 
 	/**
@@ -75,13 +69,7 @@ private ArrayList<Item> items = new ArrayList<>();
 	 * @return le nombre de films
 	 */
 	public int nbFilms() {
-		return 0;
-//		int n = 0;
-//		 for (Item i : items) {
-//		 if (i instanceof Film)
-//		 n++;
-//		 };
-//		 return n; 
+		return members.size();
 	}
 
 	/**
@@ -90,13 +78,7 @@ private ArrayList<Item> items = new ArrayList<>();
 	 * @return le nombre de livres
 	 */
 	public int nbBooks() {
-		return 0;
-//		int n = 0;
-//		 for (Item i : items) {
-//		 if (i instanceof Book)
-//		 n++;
-//		 };
-//		 return n; 
+		return books.size();
 	}
 
 
@@ -118,14 +100,12 @@ private ArrayList<Item> items = new ArrayList<>();
 	 * 
 	 */
 	public void addMember(String pseudo, String password, String profil) throws BadEntry, MemberAlreadyExists  {
-//		Member nouveauMembre = new Member(pseudo, password, profil);
-//		 for (Member m : membres) {
-//		 if (m.equals(nouveauMembre))
-//		 throw new MemberAlreadyExists();
-//		 if(m.getPseudo().equals(""))
-//			 throw new BadEntry("Error pseudo null");
-//		 };
-//		 membres.add(nouveauMembre); 
+		Member newMenber = new Member (pseudo, password, profil);
+		if (newMenber.itExists(members))
+			throw new MemberAlreadyExists();
+		if (newMenber.badPseudo(pseudo))
+			throw new BadEntry("Pseudo mal saisie");
+		members.add(newMenber);
 	}
 
 
@@ -274,7 +254,7 @@ private ArrayList<Item> items = new ArrayList<>();
 
 	@Override
 	public String toString() {
-		return "SocialNetwork [membres=" + membres + ", items=" + items + "]";
+		return "";
 	}
 
 	
