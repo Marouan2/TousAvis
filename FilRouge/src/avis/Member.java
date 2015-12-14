@@ -1,8 +1,7 @@
 package avis;
 
 import java.util.LinkedList;
-
-import exception.BadEntry;
+import exception.*;
 
 public class Member  {
 	private String pseudo;

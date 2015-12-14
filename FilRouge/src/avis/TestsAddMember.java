@@ -10,9 +10,10 @@ import exception.NotItem;
 import exception.NotMember;
 
 /** 
- * @author B. Prou
- * @date mars 2011
- * @version V0.6
+ * @author Kadry Mohammadou Aminou
+ * @author Marouan Marouan
+ * @date mars 2015
+ * @version V0.7
  */
 
 public class TestsAddMember {
@@ -21,14 +22,14 @@ public class TestsAddMember {
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 
-		int nbMembres = 0;
+		SocialNetwork sn = new SocialNetwork();
+		
+		
+/*		int nbMembres = 0;
 		int nbLivres = 0;
 		int nbFilms = 0;
 
 		System.out.println("Tests  ajouter des membres au réseau social  ");
-
-
-		SocialNetwork sn = new SocialNetwork();
 
 		// tests de addMember
 		nbFilms = sn.nbFilms();
@@ -39,9 +40,10 @@ public class TestsAddMember {
 		// tentative d'ajout de membres avec entrées "incorrectes"
 
 		nbMembres = sn.nbMembers();
+		//ajout d'un membre avec un pseudo nul
 		try {
 			sn.addMember(null, "qsdfgh", "");	
-			System.out.println("Erreur 3.1 :  l'ajout d'un membre dont le pseudo n'est pas instancié est accepté ");
+			System.out.println("Erreur 3.1 :  l'ajout d'un membre dont le pseudo n'est pas renseigné est accepté ");
 		}
 		catch (BadEntry e) {
 			if (sn.nbMembers() != nbMembres)
@@ -57,7 +59,7 @@ public class TestsAddMember {
 			sn.addMember("  ", "qsdfgh", "");	
 			System.out.println("Erreur 3.2 :  l'ajout d'un membre dont le pseudo ne contient pas un caractère, autre que des espaces, est accepté ");
 		}
-		catch (BadEntry e) {
+		catch (BadEntry e) {http://mms-contact.com/R?
 			if (sn.nbMembers() != nbMembres)
 				System.out.println("Erreur 3.2 :  le nombre de membres après tentative d'ajout refusée a été modifié");
 		}			
@@ -195,7 +197,7 @@ public class TestsAddMember {
 
 		// ce n'est pas du test, mais cela peut "rassurer"...
 		System.out.println(sn);
-
+*/
 	}
 
 }
