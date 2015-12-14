@@ -8,7 +8,7 @@ public class Member  {
 	private String pseudo;
 	private String password;
 	private String profil;
-	LinkedList<Review> reviews ;
+	private LinkedList<Review> reviews ;
 	
 	
 	public Member(String pseudo, String password, String profil)throws BadEntry {
