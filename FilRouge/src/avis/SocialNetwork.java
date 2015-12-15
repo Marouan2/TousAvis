@@ -37,11 +37,12 @@ import exception.NotMember;
 
 public class SocialNetwork {
 	
-	LinkedList <Film> films;
-	LinkedList <Book> books;
-	LinkedList <Member> members;
-
-
+	private LinkedList <Film> films;
+	private LinkedList <Book> books;
+	private LinkedList <Member> members;
+    private Film film;
+    private Book book;
+    private Member member;
 
 	/**
 	 * constructeur de <i>SocialNetwok</i> 
@@ -52,6 +53,7 @@ public class SocialNetwork {
 		films = new LinkedList<Film>();
 		books = new LinkedList<Book>();
 		members = new LinkedList<Member>();
+		
 	}
 
 	/**
@@ -69,7 +71,7 @@ public class SocialNetwork {
 	 * @return le nombre de films
 	 */
 	public int nbFilms() {
-		return members.size();
+		return films.size();
 	}
 
 	/**
@@ -100,12 +102,12 @@ public class SocialNetwork {
 	 * 
 	 */
 	public void addMember(String pseudo, String password, String profil) throws BadEntry, MemberAlreadyExists  {
-		Member newMenber = new Member (pseudo, password, profil);
-		if (newMenber.itExists(members))
-			throw new MemberAlreadyExists();
-		if (newMenber.badPseudo(pseudo))
-			throw new BadEntry("Pseudo mal saisie");
-		members.add(newMenber);
+		Member newMember = new Member (pseudo, password, profil);
+		for (Member m : members) {
+			 if (m.equals(newMember))
+			 throw new MemberAlreadyExists();
+		}
+		members.add(newMember);
 	}
 
 
@@ -135,13 +137,12 @@ public class SocialNetwork {
 	 * 
 	 */
 	public void addItemFilm(String pseudo, String password, String titre, String genre, String realisateur, String scenariste, int duree) throws BadEntry, NotMember, ItemFilmAlreadyExists {
-		Member member = new Member(pseudo, password);
-		Film nouveauFilm = new Film(titre, genre, realisateur, scenariste, duree);
-		 for (Item m : items) {
-		 if (m.equals(nouveauFilm))
+		Film newFilm = new Film(titre, genre, realisateur, scenariste, duree);
+		 for (Film m : films) {
+		 if (m.equals(newFilm))
 		 throw new ItemFilmAlreadyExists();
 		 };
-		 items.add(nouveauFilm); 
+		 films.add(newFilm); 
 		
 	}
 
@@ -170,14 +171,42 @@ public class SocialNetwork {
 	 * 
 	 */
 	public void addItemBook(String pseudo, String password, String titre, String genre, String auteur, int nbPages) throws  BadEntry, NotMember, ItemBookAlreadyExists{
-		Book nouveauBook = new Book(titre, genre, auteur, nbPages);
-		 for (Item m : items) {
-		 if (m.equals(nouveauBook))
+		Book newBook = new Book(titre, genre, auteur, nbPages);
+		 for (Book m : books) {
+		 if (m.equals(newBook))
 		 throw new ItemBookAlreadyExists();
 		 };
-		 items.add(nouveauBook);
+		 books.add(newBook);
 	}
 
+	
+	public Film getFilm(String titre){
+		for(Film film:films){
+			if(film.getTitre().equals(titre))
+			return film;			
+		}
+		return null;
+		
+	}
+	
+	public Book getBook(String titre){
+		for(Book book:books){
+			if(book.getTitre().equals(titre))
+			return book;			
+		}
+		return null;
+		
+	}
+	
+	public Member getMember(String pseudo, String password){
+		for(Member member:members){
+			if(member.getPseudo().equals(pseudo)|| member.getPassword().equals(password))
+			return member;			
+		}
+		return null;
+		
+	}
+	
 	/**
 	 * Consulter les items du <i>SocialNetwork</i> par nom
 	 * 
@@ -188,9 +217,18 @@ public class SocialNetwork {
 	 * @return LinkedList <String> : la liste des représentations de tous les items ayant ce nom 
 	 * Cette représentation contiendra la note de l'item s'il a été noté.
 	 * (une liste vide si aucun item ne correspond) 
-	 */
+	 */	
 	public LinkedList <String> consultItems(String nom) throws BadEntry {
-		return new LinkedList <String> ();
+		LinkedList<String> result = new LinkedList<String>();
+		if(nom==null || nom.length()<1)
+			throw new BadEntry("le nom est obligatoire et contient au moins 1 caractère");		
+		film = getFilm(nom);
+		book = getBook(nom);
+		if(film !=null)
+		result.add(film.toString());
+		if(book !=null)
+		result.add(book.toString());
+		return result;
 	}
 
 
@@ -220,7 +258,21 @@ public class SocialNetwork {
 	 * @return la note moyenne des notes sur ce film  
 	 */
 	public float reviewItemFilm(String pseudo, String password, String titre, float note, String commentaire) throws BadEntry, NotMember, NotItem {
-		return 0.0f;
+		film = getFilm(titre);
+		if(film==null)
+			throw new NotItem("Film n'existe pas");
+		member = getMember(pseudo, password);
+		if(member!=null)
+			throw new NotMember("Member n'existe pas");
+		Review review = member.getItemReview(film);
+    	if(review!=null){
+    		Review newReview = new Review(note, commentaire, member, film);
+    		member.addReview(newReview);
+    	}
+    	else{
+    		review.updateReview(note, commentaire);
+    	}
+    	return film.note();
 	}
 
 
@@ -250,7 +302,21 @@ public class SocialNetwork {
 	 * @return la note moyenne des notes sur ce livre
 	 */
 	public float reviewItemBook(String pseudo, String password, String titre, float note, String commentaire) throws BadEntry, NotMember, NotItem {
-		return 0.0f;
+		book = getBook(titre);
+		if(book==null)
+			throw new NotItem("Book n'existe pas");
+		member = new Member(pseudo, password);
+		if(member!=null)
+			throw new NotMember("Member n'existe pas");
+		Review review = member.getItemReview(book);
+    	if(review==null){
+    		Review newReview = new Review(note, commentaire, member, book);
+    		member.addReview(newReview);
+    	}
+    	else{
+    		review.updateReview(note, commentaire);
+    	}
+    	return book.note();
 	}
 
 	@Override

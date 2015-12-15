@@ -28,6 +28,13 @@ public class Book extends Item {
 	public void setNbPages(int nbPages) {
 		this.nbPages = nbPages;
 	}
-	
+	@Override
+	public String toString() {
+		if(getReviews().size()==0)
+			return "Ce livre de"+ super.toString() + "de" + auteur +  
+					"contient" + nbPages +"pages"+ "ce livre n'est pas noté";
+		return "Ce livre de"+ super.toString() + "de" + auteur +  
+				"contient" + nbPages +"pages"+"et de note"+super.note();
+	}
 
 }

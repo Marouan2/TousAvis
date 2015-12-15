@@ -37,6 +37,10 @@ public class Review {
 	public void setText(String text) {
 		this.text = text;
 	}
-	
+	public void updateReview(float note,String text){
+		this.note=note;
+		this.text=text;
+		
+	}
 
 }

@@ -44,4 +44,16 @@ public class Item {
 		this.reviews = reviews;
 	}
 
+    public float note(){
+    	float note = 0;
+    	for(Review review:reviews){
+    		note = note +review.getNote();
+    	}
+    	return note/reviews.size();
+    } 
+	@Override
+	public String toString() {
+		return "Titre" + titre + "de genre" + genre ;
+	}
+
 }

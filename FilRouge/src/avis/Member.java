@@ -1,6 +1,9 @@
 package avis;
 
 import java.util.LinkedList;
+
+import org.hamcrest.core.IsInstanceOf;
+
 import exception.*;
 
 public class Member  {
@@ -15,22 +18,17 @@ public class Member  {
 			throw new BadEntry("le pseudo est obligatoire et contient au moins 1 caractère");
 		if(password==null || password.length()<4)
 			throw new BadEntry("le password est obligatoire et contient au moins 4 caractères");
-		if(profil==null)
-			throw new BadEntry("le profil est obligatoire");
+		//if(profil==null)
+			//throw new BadEntry("le profil est obligatoire");
 		this.pseudo = pseudo;
 		this.password = password;
 		this.profil = profil;
 		reviews = new LinkedList<Review>();
-	}
-	
-	
-	
+	}	
 	public Member(String pseudo, String password) {
 		this.pseudo = pseudo;
 		this.password = password;
 	}
-
-
 
 	public String getPseudo() {
 		return pseudo;
@@ -50,5 +48,26 @@ public class Member  {
 	public void setProfil(String profil) {
 		this.profil = profil;
 	}
+	
+	public void addReview(Review review){
+		reviews.add(review);		
+	}
+	
+	public Review getItemReview(Item item){
+		for(Review review:reviews){
+			if(review.getItem()instanceof Film){
+				return review;
+			}
+			else if(review.getItem() instanceof Book) {
+				return review;
+				
+			}			
+		}
+		return null;
+		
+	}
+	
+	
+	
 	
 }

@@ -44,4 +44,15 @@ public class Film extends Item {
 		this.duree = duree;
 	}
 
+	@Override
+	public String toString() {
+		if(getReviews().size()==0)
+			return "Le film de"+ super.toString() + "realisé par" + realisateur + "et de scenariste=" + scenariste + 
+					"d'une duree de" + duree + "ce film n'est pas noté";
+		return "Le film de"+ super.toString() + "realisé par" + realisateur + "et de scenariste=" + scenariste + 
+				"d'une duree de" + duree +"et de note"+super.note();
+	}
+
+	
+
 }
