@@ -43,6 +43,7 @@ public class SocialNetwork {
     private Film film;
     private Book book;
     private Member member;
+    private Review review;
 
 	/**
 	 * constructeur de <i>SocialNetwok</i> 
@@ -104,7 +105,7 @@ public class SocialNetwork {
 	public void addMember(String pseudo, String password, String profil) throws BadEntry, MemberAlreadyExists  {
 		Member newMember = new Member (pseudo, password, profil);
 		for (Member m : members) {
-			 if (m.equals(newMember))
+			 if (m.getPseudo().equals(newMember.getPseudo()))
 			 throw new MemberAlreadyExists();
 		}
 		members.add(newMember);
@@ -139,7 +140,7 @@ public class SocialNetwork {
 	public void addItemFilm(String pseudo, String password, String titre, String genre, String realisateur, String scenariste, int duree) throws BadEntry, NotMember, ItemFilmAlreadyExists {
 		Film newFilm = new Film(titre, genre, realisateur, scenariste, duree);
 		 for (Film m : films) {
-		 if (m.equals(newFilm))
+		 if (m.getTitre().equals(newFilm.getTitre())|| m.getRealisateur().equals(newFilm.getRealisateur()))
 		 throw new ItemFilmAlreadyExists();
 		 };
 		 films.add(newFilm); 
@@ -173,13 +174,16 @@ public class SocialNetwork {
 	public void addItemBook(String pseudo, String password, String titre, String genre, String auteur, int nbPages) throws  BadEntry, NotMember, ItemBookAlreadyExists{
 		Book newBook = new Book(titre, genre, auteur, nbPages);
 		 for (Book m : books) {
-		 if (m.equals(newBook))
+		 if (m.getTitre().equals(newBook.getTitre()) || m.getAuteur().equals(newBook.getAuteur()))
 		 throw new ItemBookAlreadyExists();
 		 };
 		 books.add(newBook);
 	}
 
-	
+	/**
+	 * @return un film
+	 * 
+	 */
 	public Film getFilm(String titre){
 		for(Film film:films){
 			if(film.getTitre().equals(titre))
@@ -189,6 +193,10 @@ public class SocialNetwork {
 		
 	}
 	
+	/**
+	 * @return un livre
+	 * 
+	 */
 	public Book getBook(String titre){
 		for(Book book:books){
 			if(book.getTitre().equals(titre))
@@ -198,9 +206,14 @@ public class SocialNetwork {
 		
 	}
 	
-	public Member getMember(String pseudo, String password){
+	/**
+	 * @return un membre
+	 * 
+	 */
+	
+	public Member getMember(String pseudo){
 		for(Member member:members){
-			if(member.getPseudo().equals(pseudo)|| member.getPassword().equals(password))
+			if(member.getPseudo().equals(pseudo))
 			return member;			
 		}
 		return null;
@@ -261,8 +274,8 @@ public class SocialNetwork {
 		film = getFilm(titre);
 		if(film==null)
 			throw new NotItem("Film n'existe pas");
-		member = getMember(pseudo, password);
-		if(member!=null)
+		member = review.getMember();
+		if(member==null)
 			throw new NotMember("Member n'existe pas");
 		Review review = member.getItemReview(film);
     	if(review!=null){
@@ -305,8 +318,8 @@ public class SocialNetwork {
 		book = getBook(titre);
 		if(book==null)
 			throw new NotItem("Book n'existe pas");
-		member = new Member(pseudo, password);
-		if(member!=null)
+		member = getMember(pseudo);
+		if(member==null)
 			throw new NotMember("Member n'existe pas");
 		Review review = member.getItemReview(book);
     	if(review==null){
@@ -321,7 +334,10 @@ public class SocialNetwork {
 
 	@Override
 	public String toString() {
-		return "";
+		int nbBook =nbBooks();		
+		int nbFilm = nbFilms();
+		int nbMember=nbMembers();
+		return "Social Network contient"+nbMember+ "membres et" +nbFilm+ "films et" +nbBook+ "livres";
 	}
 
 	

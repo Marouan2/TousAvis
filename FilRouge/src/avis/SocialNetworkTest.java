@@ -12,11 +12,6 @@ import exception.NotMember;
 
 public class SocialNetworkTest {
 private SocialNetwork sn = new SocialNetwork();
-//private Item item ;
-private Film film;
-//private Member member;
-//private ArrayList<Film> films = new ArrayList<>();
-
 private int nbMembres = 0;
 private int nbLivres = 0;
 private int nbFilms = 0;
@@ -24,7 +19,6 @@ private int nbFilms = 0;
 
 	@Test
 	public void testNbMembers() throws BadEntry, MemberAlreadyExists {
-        //nbMembres = sn.nbMembers();
 		sn.addMember("Paul", "paul", "lecteur impulsif");
 		sn.addMember("Antoine", "antoine", "grand amoureux de littérature");
 		sn.addMember("Alice", "alice", "23 ans, sexy");		
@@ -50,10 +44,10 @@ private int nbFilms = 0;
 
 	@Test
 	public void testAddMember() throws BadEntry, MemberAlreadyExists {		
-//		sn.addMember("Paul", "paul", "lecteur impulsif");
-//		sn.addMember("Paul", "ttt", "grand amoureux de littérature");
-//		//sn.addMember("Alice", "", "23 ans, sexy");
-//		assertTrue(false);
+		sn.addMember("jean", "paul", "lecteur impulsif");
+     	sn.addMember("Paul", "gtyhu", "grand amoureux de littérature");
+		sn.addMember("Alice", "alice", "23 ans, sexy");
+		//assertTrue(false);
 		 nbFilms = sn.nbFilms();
          nbLivres = sn.nbBooks();
 		
@@ -117,28 +111,22 @@ private int nbFilms = 0;
 
 	@Test
 	public void testAddItemFilm() throws BadEntry, NotMember, ItemFilmAlreadyExists {
-		//item = new Item("pseudo", "password", "ninja1", "genre");
 		sn.addItemFilm("pseudo2", "password2", "ninja", "genre2", "realisateur2", "scenariste2", 80);
 		sn.addItemFilm("pseudo3", "password3", "ninja", "genre3", "realisateur3", "scenariste3", 70);
-
 		assertEquals("film already exist", "ninja","ninja" );
 	}
 
 	@Test
-	public void testAddItemBook() throws BadEntry, NotMember, ItemBookAlreadyExists {
-
-	
-		 nbFilms = sn.nbFilms();
-         nbLivres = sn.nbBooks();
-         
+	public void testAddItemBook() throws BadEntry, NotMember, ItemBookAlreadyExists {	
+		 ///nbFilms = sn.nbFilms();
+        // nbLivres = sn.nbBooks();         
          // <=> fiche num�ro 1
-
          // tentative d'ajout de LIVRES avec entr�es "incorrectes"
          nbLivres = sn.nbBooks();
          sn.addItemBook(null, "zazarty", "qsdfgh", "efghi", "auteur", 100);        
          assertEquals("Erreur 5.1 :  l'ajout d'un livre dont le pseudo n'est pas instanci� est accept� ",nbLivres,sn.nbBooks());
 
-         nbLivres = sn.nbBooks();
+         //nbLivres = sn.nbBooks();
          sn.addItemBook("  ", "vbg", "querty", "vbnh", "auteur", 150);        
          assertEquals("Erreur 5.2 :  l'ajout d'un livre dont le pseudo ne contient pas un caract�re, autre que des espaces, est accept� ",nbLivres,sn.nbBooks());
 

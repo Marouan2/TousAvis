@@ -25,10 +25,7 @@ public class Member  {
 		this.profil = profil;
 		reviews = new LinkedList<Review>();
 	}	
-	public Member(String pseudo, String password) {
-		this.pseudo = pseudo;
-		this.password = password;
-	}
+	
 
 	public String getPseudo() {
 		return pseudo;
