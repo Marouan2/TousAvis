@@ -142,8 +142,9 @@ public class SocialNetwork {
 		 for (Film m : films) {
 		 if (m.getTitre().equals(newFilm.getTitre())|| m.getRealisateur().equals(newFilm.getRealisateur()))
 		 throw new ItemFilmAlreadyExists();
-		 };
-		 films.add(newFilm); 
+		 films.add(newFilm);
+		 
+		 }	  
 		
 	}
 
@@ -175,9 +176,9 @@ public class SocialNetwork {
 		Book newBook = new Book(titre, genre, auteur, nbPages);
 		 for (Book m : books) {
 		 if (m.getTitre().equals(newBook.getTitre()) || m.getAuteur().equals(newBook.getAuteur()))
-		 throw new ItemBookAlreadyExists();
-		 };
+		 throw new ItemBookAlreadyExists();		
 		 books.add(newBook);
+		 }
 	}
 
 	/**

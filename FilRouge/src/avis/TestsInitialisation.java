@@ -1,14 +1,5 @@
 package avis;
 
-import java.util.LinkedList;
-
-import exception.BadEntry;
-import exception.ItemFilmAlreadyExists;
-import exception.ItemBookAlreadyExists;
-import exception.MemberAlreadyExists;
-import exception.NotItem;
-import exception.NotMember;
-
 /** 
  * @author B. Prou
  * @date mars 2011
