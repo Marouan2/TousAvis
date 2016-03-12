@@ -1,10 +1,10 @@
 package avis;
 
-import java.util.LinkedList;
+import java.util.List;
 
 import exception.BadEntry;
-import exception.ItemFilmAlreadyExists;
 import exception.ItemBookAlreadyExists;
+import exception.ItemFilmAlreadyExists;
 import exception.MemberAlreadyExists;
 import exception.NotItem;
 import exception.NotMember;
@@ -19,11 +19,30 @@ import exception.NotMember;
 public class TestsAddMember {
 
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws NotMember, ItemFilmAlreadyExists, NotItem, ItemBookAlreadyExists {
 		// TODO Auto-generated method stub
-
+        List<String> l;
 		SocialNetwork sn = new SocialNetwork();
-		
+		try {
+			sn.addMember("Paul", "paul", "lecteur impulsif");
+			sn.addMember("marouan", "marouan", "lecteur ninja");
+
+			sn.addItemBook("Paul", "paul", "ninja", "genre", "scenariste", 80);
+			sn.addItemFilm("marouan", "marouan", "ninja2", "genre","gfgf", "scenariste", 80);
+			sn.addItemFilm("marouan", "marouan", "ninja3", "genregg","gfgfgg", "scenaristegg", 80);
+//			l=sn.consultFilmsEtLivres("ninja");
+//			System.out.println(l);
+			float a =sn.reviewItemBook("Paul", "paul", "ninja", 3, "blabla nhfhfjfj");
+			System.out.println(a);
+			float b = sn.reviewOpinionBook("marouan", "marouan", "ninja", "Paul", 2);
+			System.out.println(b);
+		} catch (BadEntry e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (MemberAlreadyExists e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}	
 		
 /*		int nbMembres = 0;
 		int nbLivres = 0;

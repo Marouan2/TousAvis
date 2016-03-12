@@ -46,11 +46,9 @@ public class Film extends Item {
 
 	@Override
 	public String toString() {
-		if(getReviews().size()==0)
-			return "Le film de"+ super.toString() + "realisé par" + realisateur + "et de scenariste=" + scenariste + 
-					"d'une duree de" + duree + "ce film n'est pas noté";
-		return "Le film de"+ super.toString() + "realisé par" + realisateur + "et de scenariste=" + scenariste + 
-				"d'une duree de" + duree +"et de note"+super.note();
+		if(super.getReviews().size()==0)
+			return "Le film de "+super.toString()+", realisé par "+this.realisateur+", et de scenariste "+this.scenariste+", d'une duree de "+this.duree+", ce film n'est pas noté";
+		return "Le film de "+super.toString()+", realisé par "+this.realisateur+", et de scenariste "+this.scenariste+", d'une duree de "+this.duree+", et de note "+this.note()+" ";
 	}
 
 	

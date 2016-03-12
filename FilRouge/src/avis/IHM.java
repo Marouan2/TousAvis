@@ -36,6 +36,7 @@ public class IHM {
 	private int largeurFenetre = 600;
 
 	private String pseudoMembre = "";
+	private String pseudoMembre2 = "";
 	private String passwordMembre = "";
 	private String profilMembre = "";
 
@@ -52,6 +53,7 @@ public class IHM {
 
 	String commentaireMembre;
 	String noteMembre;
+	String noteMembreAvis;
 
 	private String [] films = new String[0];
 	private String [] livres = new String[0];
@@ -101,6 +103,12 @@ public class IHM {
 		menuMembre.add(jMenuItem);
 		jMenuItem = new JMenuItem("donner un avis sur un item film");
 		jMenuItem.addActionListener(new ReviewItem("film"));
+		menuMembre.add(jMenuItem);
+		jMenuItem = new JMenuItem("donner une note sur un avis livre");
+		jMenuItem.addActionListener(new NoteReview("livre"));
+		menuMembre.add(jMenuItem);
+		jMenuItem = new JMenuItem("donner une note sur un avis film");
+		jMenuItem.addActionListener(new NoteReview("film"));
 		menuMembre.add(jMenuItem);
 
 
@@ -445,6 +453,79 @@ public class IHM {
 	}
 
 
+//////////////////////////////////////
+	
+	private class NoteReview   implements ActionListener {
+		JPanelEntree jPanelPseudo;
+		JPanelEntree jPanelPseudo2;
+		JPanelPassword jPanelPassword;
+		JPanelEntree jPanelTitre;
+		JPanelEntree jPanelNote;
+		JScrollPaneTexte jScrollPaneCommentaire;
+
+		String type;
+
+		
+		public NoteReview (String type) {
+			this.type = type;
+		}
+		public void actionPerformed(ActionEvent e) {
+			JPanel reviewer = new JPanel();
+//			jScrollPaneCommentaire = new JScrollPaneTexte(" commentaire ? ",  commentaireMembre, true, largeurFenetre);
+//			reviewer.add(jScrollPaneCommentaire);
+			JPanel jPanelPseudoEtPasswordEtTitre = new JPanel();
+			jPanelPseudoEtPasswordEtTitre.setLayout(new GridLayout(7,1, 4, 4));
+			jPanelPseudo = new JPanelEntree(" pseudo membre ? ", pseudoMembre, largeurFenetre);
+			jPanelPseudoEtPasswordEtTitre.add(jPanelPseudo);
+			jPanelPassword = new JPanelPassword(" password membre ? ", passwordMembre, largeurFenetre);
+			jPanelPseudoEtPasswordEtTitre.add(jPanelPassword);
+			jPanelTitre = new JPanelEntree(" titre ? ", titreLivre, largeurFenetre);
+			jPanelPseudoEtPasswordEtTitre.add(jPanelTitre);
+			jPanelPseudo2 = new JPanelEntree(" pseudo membre à noter ? ", pseudoMembre2, largeurFenetre);
+			jPanelPseudoEtPasswordEtTitre.add(jPanelPseudo2);
+			jPanelNote = new JPanelEntree(" note ? ", noteMembreAvis, largeurFenetre);
+			jPanelPseudoEtPasswordEtTitre.add(jPanelNote);
+			JButton valider = new JButton("Valider note review " + type); 
+			valider.setPreferredSize(new Dimension(largeurFenetre-20, 25));
+			valider.addActionListener(new ActionNoteReview());
+			jPanelPseudoEtPasswordEtTitre.add(valider);
+			reviewer.add(jPanelPseudoEtPasswordEtTitre);				
+			reviewer.setVisible(false);
+			fenetreInteraction.getContentPane().removeAll();
+			fenetreInteraction.repaint();
+			fenetreInteraction.setSize(largeurFenetre + 100, 320);
+			fenetreInteraction.getContentPane().add(reviewer);
+			reviewer.setVisible(true);			
+			fenetreInteraction.setVisible(true);			
+			fenetreInteraction.repaint();
+		}
+
+		class ActionNoteReview implements ActionListener {
+			public void actionPerformed(ActionEvent e) {
+				try {
+					pseudoMembre = jPanelPseudo.getEntree(); 
+					pseudoMembre2 = jPanelPseudo2.getEntree();
+					passwordMembre = jPanelPassword.getPassword(); 
+					titreLivre = jPanelTitre.getEntree(); 
+					noteMembreAvis = jPanelNote.getEntree();
+					commentaireMembre = jScrollPaneCommentaire.getTexte();
+					if (type.equals("livre"))
+						metier.reviewOpinionBook(pseudoMembre, passwordMembre, titreLivre, pseudoMembre2, new Float(noteMembreAvis));
+					    JOptionPane.showMessageDialog(fenetreInteraction, "Success ajout NoteReviewBook :   ");
+
+					if (type.equals("film"))
+						metier.reviewOpinionFilm(pseudoMembre, passwordMembre, titreLivre, pseudoMembre2, new Float(noteMembreAvis));
+					
+				}
+				catch (Exception exception) {
+					if (type.equals("livre"))
+						JOptionPane.showMessageDialog(fenetreInteraction, "Exception dans NoteReviewBook :   "  + exception);
+					if (type.equals("film"))
+						JOptionPane.showMessageDialog(fenetreInteraction, "Exception dans NoteReviewFilm :   "  + exception);
+				}
+			}
+		}
+	}
 
 
 

@@ -39,11 +39,15 @@ public class SocialNetwork {
 	
 	private LinkedList <Film> films;
 	private LinkedList <Book> books;
+	private LinkedList <Item> items;
 	private LinkedList <Member> members;
+	private LinkedList<Review> reviews;
     private Film film;
     private Book book;
     private Member member;
+    private Member member2;
     private Review review;
+	private float tempNoteReview;
 
 	/**
 	 * constructeur de <i>SocialNetwok</i> 
@@ -142,9 +146,11 @@ public class SocialNetwork {
 		 for (Film m : films) {
 		 if (m.getTitre().equals(newFilm.getTitre())|| m.getRealisateur().equals(newFilm.getRealisateur()))
 		 throw new ItemFilmAlreadyExists();
-		 films.add(newFilm);
+		 	 		 
+		 }	 
 		 
-		 }	  
+			 films.add(newFilm);
+			 //items.add(newFilm);
 		
 	}
 
@@ -177,9 +183,12 @@ public class SocialNetwork {
 		 for (Book m : books) {
 		 if (m.getTitre().equals(newBook.getTitre()) || m.getAuteur().equals(newBook.getAuteur()))
 		 throw new ItemBookAlreadyExists();		
-		 books.add(newBook);
+		 
 		 }
-	}
+		 //items.add(newBook);
+		 books.add(newBook);
+		 
+	}	 
 
 	/**
 	 * @return un film
@@ -221,6 +230,21 @@ public class SocialNetwork {
 		
 	}
 	
+	
+	
+//	public Review getReview(int id) {
+//		for(Review review:reviews){
+//			if(review.getId()==id)
+//				return review;			
+//		}
+//		return null;
+//		
+//	}
+
+	public void setReview(Review review) {
+		this.review = review;
+	}
+
 	/**
 	 * Consulter les items du <i>SocialNetwork</i> par nom
 	 * 
@@ -246,7 +270,26 @@ public class SocialNetwork {
 	}
 
 
-
+public LinkedList <String> consultFilmsEtLivres(String nom) throws BadEntry {
+		
+	LinkedList<String> result = new LinkedList<String>();
+	if(nom==null || nom.length()<1)
+		throw new BadEntry("le nom est obligatoire et contient au moins 1 caractère");	
+		
+		for(Film film : films){  //recherche d'un titre correspondant à la recherche dans la liste d'items
+			if (film.getTitre().trim().toLowerCase().startsWith(nom)){
+				result.add(film.getTitre());
+		}
+	
+	}
+		for(Book book : books){  //recherche d'un titre correspondant à la recherche dans la liste d'items
+			if (book.getTitre().trim().toLowerCase().startsWith(nom)){
+				result.add(book.getTitre());
+		}
+	
+	}
+		return result;
+}
 	/**
 	 * Donner son opinion sur un item film.
 	 * Ajoute l'opinion de ce membre sur ce film au <i>SocialNetwork</i> 
@@ -275,17 +318,21 @@ public class SocialNetwork {
 		film = getFilm(titre);
 		if(film==null)
 			throw new NotItem("Film n'existe pas");
-		member = review.getMember();
+		member = getMember(pseudo);
 		if(member==null)
 			throw new NotMember("Member n'existe pas");
 		Review review = member.getItemReview(film);
-    	if(review!=null){
-    		Review newReview = new Review(note, commentaire, member, film);
+    	if(review==null){
+    		Review newReview = new Review(note, commentaire,film, member);
+    		film.addReview(newReview);
     		member.addReview(newReview);
     	}
     	else{
     		review.updateReview(note, commentaire);
-    	}
+			Review oldReviewFilm = film.getReview(member);
+			oldReviewFilm.updateReview(note, commentaire);
+		}
+
     	return film.note();
 	}
 
@@ -324,32 +371,74 @@ public class SocialNetwork {
 			throw new NotMember("Member n'existe pas");
 		Review review = member.getItemReview(book);
     	if(review==null){
-    		Review newReview = new Review(note, commentaire, member, book);
+    		Review newReview = new Review(note, commentaire,book, member);
+    		book.addReview(newReview);
     		member.addReview(newReview);
     	}
     	else{
     		review.updateReview(note, commentaire);
+			Review oldReviewFilm = book.getReview(member);
+			oldReviewFilm.updateReview(note, commentaire);
     	}
     	return book.note();
 	}
-
-	@Override
-	public String toString() {
-		int nbBook =nbBooks();		
-		int nbFilm = nbFilms();
-		int nbMember=nbMembers();
-		return "Social Network contient"+nbMember+ "membres et" +nbFilm+ "films et" +nbBook+ "livres";
-	}
-
 	
-
+	/////Review opinion book
+	
+	public float reviewOpinionBook(String pseudo1,String password,String titre,String pseudo2,float note)
+	{
+		book = getBook(titre);
+		member = getMember(pseudo1);
+		member2 = getMember(pseudo2);
+		Review review = book.getReview(member2);
+		if(review!=null){
+			//int indexFilm = books.indexOf(book);
+			Review review2 = new Review(member,member2,note);
+			review.getMember().addReview(review2);
+			System.out.println(review.getMember().getPseudo());
+			//Mise à jour de la note du review (par rapport au nombre de personne ayant déjà noté l'avis)
+			book.addNoteToReview(pseudo1, pseudo2, note);
+			//Récupération de la moyenne obtenue
+			tempNoteReview=book.getNoteReview(pseudo1, pseudo2);		
+		}
+		else{
+			System.out.println("exception");			
+		}		
+		return tempNoteReview;			
+	}
+	
+    /////Review opinion film
+	public float reviewOpinionFilm(String pseudo1,String password,String titre,String pseudo2,float note)
+	{
+		film = getFilm(titre);
+		member = getMember(pseudo1);
+		member2 = getMember(pseudo2);
+		Review review = film.getReview(member2);
+		if(review!=null){		
+			//Mise à jour de la note du review (par rapport au nombre de personne ayant déjà noté l'avis)
+			film.addNoteToReview(pseudo1, pseudo2, note);
+			//Récupération de la moyenne obtenue
+			tempNoteReview=film.getNoteReview(pseudo1, pseudo2);			
+		}
+		else{
+			System.out.println("exception");			
+		}		
+		return tempNoteReview;				
+	}
 
 	/**
 	 * Obtenir une représentation textuelle du <i>SocialNetwork</i>.
 	 * 
 	 * @return la chaîne de caractères représentation textuelle du <i>SocialNetwork</i> 
 	 */
-	
+	@Override
+	public String toString() {
+		int nbBook =nbBooks();		
+		int nbFilm = nbFilms();
+		int nbMember=nbMembers();
+		return "Social Network contient "+nbMember+" membres et "+nbFilm+" films et "+nbBook+" livres";
+	}
+
 
 
 

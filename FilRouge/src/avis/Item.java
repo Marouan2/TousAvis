@@ -43,7 +43,17 @@ public class Item {
 	public void setReviews(LinkedList<Review> reviews) {
 		this.reviews = reviews;
 	}
-
+	public void addReview(Review review){
+		reviews.add(review);
+	}
+	public Review getReview(Member member){
+		for (Review review : reviews){
+			if (review.getMember().equals(member))
+				return review;
+		}
+		return null;
+	}
+	
     public float note(){
     	float note = 0;
     	for(Review review:reviews){
@@ -51,9 +61,30 @@ public class Item {
     	}
     	return note/reviews.size();
     } 
+    
+    public void addNoteToReview(String pseudo1, String pseudo2, float note){
+		for (Review review : reviews){
+			if (review.getMember().getPseudo().trim().toLowerCase().equals(pseudo2.trim().toLowerCase())){
+				//appel de la fonction qui va ajouter la note et mettre à jour la moyenne
+				review.noteReviewUpdate(note); 
+			}
+		}
+	}
+    
+    public float getNoteReview(String pseudo1, String pseudo2){
+		for (Review review : reviews){
+			if (review.getMember().getPseudo().trim().toLowerCase().equals(pseudo2.trim().toLowerCase()))
+				
+				return review.getNoteReview(); //appel de l'accesseur de l'avis
+		}
+		return 0;
+	}
+
+    
+    
 	@Override
 	public String toString() {
-		return "Titre" + titre + "de genre" + genre ;
+		return "Titre "+this.titre+", de genre "+this.genre+" " ;
 	}
 
 }

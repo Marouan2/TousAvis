@@ -30,11 +30,9 @@ public class Book extends Item {
 	}
 	@Override
 	public String toString() {
-		if(getReviews().size()==0)
-			return "Ce livre de"+ super.toString() + "de" + auteur +  
-					"contient" + nbPages +"pages"+ "ce livre n'est pas noté";
-		return "Ce livre de"+ super.toString() + "de" + auteur +  
-				"contient" + nbPages +"pages"+"et de note"+super.note();
+		if(super.getReviews().size()==0)
+			return "Ce livre de "+super.toString()+", auteur "+this.auteur+",contient "+this.nbPages+" pages,  ce livre n'est pas noté";
+		return "Ce livre de "+super.toString()+", auteur "+this.auteur+",contient "+this.nbPages+" pages, et de note "+this.note()+" ";
 	}
 
 }

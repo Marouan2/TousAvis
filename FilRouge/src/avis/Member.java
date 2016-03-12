@@ -51,15 +51,18 @@ public class Member  {
 	}
 	
 	public Review getItemReview(Item item){
-		for(Review review:reviews){
-			if(review.getItem()instanceof Film){
-				return review;
+		if (item instanceof Film){
+			for (Review review : reviews){
+				if ((review.getItem().equals(item) && (review.getItem() instanceof Film)))
+					return review;
 			}
-			else if(review.getItem() instanceof Book) {
-				return review;
-				
+		}else if (item instanceof Book){
+			for (Review review : reviews){
+				if ((review.getItem().equals(item) && (review.getItem() instanceof Book)))
+					return review;
+			}
 			}			
-		}
+		
 		return null;
 		
 	}
