@@ -9,6 +9,8 @@ public class Review {
 	private Item item;
 	private LinkedList<String> reviewOpinions;
 	private float noteReview; 
+	private LinkedList <ReviewOfReview> listeReviewOfReview = new LinkedList <ReviewOfReview>();
+
 	
 	public Review(float note, String commentaire,  Item item,Member member) {
 		this.note = note;
@@ -56,6 +58,27 @@ public class Review {
 	public void setNoteReview(float noteReview) {
 		this.noteReview = noteReview;
 	}
+	
+	public void addReview(Member member, float note, String commentaire){
+		listeReviewOfReview.add(new ReviewOfReview(member, commentaire, note));
+	
+	}
+	
+	public float getMoyenne(){
+		int nbAvis = 0;
+		float sommeNote = 0;
+
+		for(ReviewOfReview a : listeReviewOfReview){
+			sommeNote += a.getNote();
+			nbAvis++;
+		}
+		
+		if(nbAvis==0) 	
+			return 0;
+		else			
+			return sommeNote/nbAvis;
+	}
+	
 	
 	public void noteReviewUpdate(float noteReview){
 		this.noteReview=noteReview;
