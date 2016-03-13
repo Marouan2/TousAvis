@@ -62,26 +62,7 @@ public class Item {
     	return note/reviews.size();
     } 
     
-    public void addNoteToReview(String pseudo1, String pseudo2, float note){
-		for (Review review : reviews){
-			if (review.getMember().getPseudo().trim().toLowerCase().equals(pseudo2.trim().toLowerCase())){
-				//appel de la fonction qui va ajouter la note et mettre à jour la moyenne
-				review.noteReviewUpdate(note); 
-			}
-		}
-	}
-    
-    public float getNoteReview(String pseudo1, String pseudo2){
-		for (Review review : reviews){
-			if (review.getMember().getPseudo().trim().toLowerCase().equals(pseudo2.trim().toLowerCase()))
-				
-				return review.getNoteReview(); //appel de l'accesseur de l'avis
-		}
-		return 0;
-	}
-
-    
-    
+       
 	@Override
 	public String toString() {
 		return "Titre "+this.titre+", de genre "+this.genre+" " ;

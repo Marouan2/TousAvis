@@ -278,13 +278,13 @@ public LinkedList <String> consultFilmsEtLivres(String nom) throws BadEntry {
 		
 		for(Film film : films){  //recherche d'un titre correspondant à la recherche dans la liste d'items
 			if (film.getTitre().trim().toLowerCase().startsWith(nom)){
-				result.add(film.getTitre());
+				result.add("Le film: "+film.getTitre()+"------- Note Moyenne= " +film.note());
 		}
 	
 	}
 		for(Book book : books){  //recherche d'un titre correspondant à la recherche dans la liste d'items
 			if (book.getTitre().trim().toLowerCase().startsWith(nom)){
-				result.add(book.getTitre());
+				result.add("Le livre: "+book.getTitre()+"------- Note Moyenne= " +film.note());
 		}
 	
 	}
@@ -383,47 +383,47 @@ public LinkedList <String> consultFilmsEtLivres(String nom) throws BadEntry {
     	return book.note();
 	}
 	
-	/////Review opinion book
 	
-	public float reviewOpinionBook(String pseudo1,String password,String titre,String pseudo2,float note)
+	/**
+	 * @param pseudo1
+	 * @param password
+	 * @param titre
+	 * @param pseudo2
+	 * @param commentaire
+	 * @param note
+	 * @return
+	 */
+	public float reviewOpinionBook(String pseudo1,String password,String titre,String pseudo2,String commentaire,float note)
 	{
 		book = getBook(titre);
 		member = getMember(pseudo1);
 		member2 = getMember(pseudo2);
 		Review review = book.getReview(member2);
 		if(review!=null){
-			//int indexFilm = books.indexOf(book);
-			Review review2 = new Review(member,member2,note);
-			review.getMember().addReview(review2);
-			System.out.println(review.getMember().getPseudo());
-			//Mise à jour de la note du review (par rapport au nombre de personne ayant déjà noté l'avis)
-			book.addNoteToReview(pseudo1, pseudo2, note);
-			//Récupération de la moyenne obtenue
-			tempNoteReview=book.getNoteReview(pseudo1, pseudo2);		
+			ReviewOfReview review2 = new ReviewOfReview(member,commentaire,note);
+			review.addReview(review2);		
 		}
 		else{
 			System.out.println("exception");			
 		}		
-		return tempNoteReview;			
+		return review.getMoyenne();			
 	}
 	
     /////Review opinion film
-	public float reviewOpinionFilm(String pseudo1,String password,String titre,String pseudo2,float note)
+	public float reviewOpinionFilm(String pseudo1,String password,String titre,String pseudo2,String commentaire,float note)
 	{
 		film = getFilm(titre);
 		member = getMember(pseudo1);
 		member2 = getMember(pseudo2);
 		Review review = film.getReview(member2);
 		if(review!=null){		
-			//Mise à jour de la note du review (par rapport au nombre de personne ayant déjà noté l'avis)
-			film.addNoteToReview(pseudo1, pseudo2, note);
-			//Récupération de la moyenne obtenue
-			tempNoteReview=film.getNoteReview(pseudo1, pseudo2);			
+			ReviewOfReview review2 = new ReviewOfReview(member,commentaire,note);
+			review.addReview(review2);		
 		}
 		else{
 			System.out.println("exception");			
 		}		
-		return tempNoteReview;				
+		return review.getMoyenne();						
 	}
 
 	/**

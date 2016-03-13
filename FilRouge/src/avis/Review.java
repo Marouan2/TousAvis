@@ -7,7 +7,6 @@ public class Review {
 	private String commentaire;
 	private Member member;
 	private Item item;
-	private LinkedList<String> reviewOpinions;
 	private float noteReview; 
 	private LinkedList <ReviewOfReview> listeReviewOfReview = new LinkedList <ReviewOfReview>();
 
@@ -59,8 +58,8 @@ public class Review {
 		this.noteReview = noteReview;
 	}
 	
-	public void addReview(Member member, float note, String commentaire){
-		listeReviewOfReview.add(new ReviewOfReview(member, commentaire, note));
+	public void addReview(ReviewOfReview reviewOfReview){
+		listeReviewOfReview.add(reviewOfReview);
 	
 	}
 	
@@ -77,11 +76,6 @@ public class Review {
 			return 0;
 		else			
 			return sommeNote/nbAvis;
-	}
-	
-	
-	public void noteReviewUpdate(float noteReview){
-		this.noteReview=noteReview;
 	}
 	
 	public void updateReview(float note,String commentaire){

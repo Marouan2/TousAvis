@@ -89,6 +89,9 @@ public class IHM {
 		jMenuItem = new JMenuItem("consulter un item");
 		jMenuItem.addActionListener(new ConsultItem());
 		menuMembre.add(jMenuItem);
+		jMenuItem = new JMenuItem("recherche items");
+		jMenuItem.addActionListener(new ConsultItems());
+		menuMembre.add(jMenuItem);
 		jMenuItem = new JMenuItem("ajouter un profil");
 		jMenuItem.addActionListener(new AddMember());
 		menuMembre.add(jMenuItem);
@@ -192,6 +195,61 @@ public class IHM {
 			public void actionPerformed(ActionEvent e) {
 				try {
 					LinkedList <String> items = metier.consultItems(jPanelNameItem.getEntree());
+					String s = "\n";
+					for (String item : items) {
+						s += item + "\n";
+					}
+					if (fenetreAffichageItems == null) {
+						fenetreAffichageItems = new JFrame();
+						fenetreAffichageItems.setLocation(30,30);
+						jScrollPaneAffichageItems = new JScrollPaneTexte(" items ",  s, false, largeurFenetre);
+						fenetreAffichageItems.getContentPane().removeAll();
+						fenetreAffichageItems.repaint();
+						fenetreAffichageItems.setSize(largeurFenetre + 100, 350);
+						fenetreAffichageItems.getContentPane().add(jScrollPaneAffichageItems);
+						jScrollPaneAffichageItems.setVisible(true);
+						fenetreAffichageItems.setVisible(true);
+						fenetreAffichageItems.repaint();
+					} else {
+						jScrollPaneAffichageItems.setTexte(s);
+						fenetreAffichageItems.setVisible(true);
+						fenetreAffichageItems.repaint();				
+					}
+
+				}
+				catch (Exception exception) {
+					JOptionPane.showMessageDialog(fenetreInteraction, "Exception dans consultItems :   "  + exception);
+				}
+			}
+		}
+
+	}
+
+	
+	
+	private class ConsultItems implements ActionListener {
+		JPanelEntree jPanelNameItem;
+		public void actionPerformed(ActionEvent e) {
+			JPanel consulterItem = new JPanel();
+			consulterItem.setLayout(new GridLayout(2,1, 4, 4));
+			jPanelNameItem = new JPanelEntree(" tapez un mot ? ", "", largeurFenetre);
+			consulterItem.add(jPanelNameItem);
+			JButton valider = new JButton("valider la demande recherche "); 
+			valider.setPreferredSize(new Dimension(largeurFenetre-20, 25));
+			valider.addActionListener(new ActionConsultItem());
+			consulterItem.add(valider);
+			consulterItem.setVisible(false);
+			fenetreInteraction.getContentPane().removeAll();
+			fenetreInteraction.repaint();
+			fenetreInteraction.setSize(largeurFenetre + 100, 120);
+			fenetreInteraction.getContentPane().add(consulterItem);
+			consulterItem.setVisible(true);			
+			fenetreInteraction.repaint();
+		}
+		class ActionConsultItem implements ActionListener {
+			public void actionPerformed(ActionEvent e) {
+				try {
+					LinkedList <String> items = metier.consultFilmsEtLivres(jPanelNameItem.getEntree());
 					String s = "\n";
 					for (String item : items) {
 						s += item + "\n";
@@ -471,8 +529,8 @@ public class IHM {
 		}
 		public void actionPerformed(ActionEvent e) {
 			JPanel reviewer = new JPanel();
-//			jScrollPaneCommentaire = new JScrollPaneTexte(" commentaire ? ",  commentaireMembre, true, largeurFenetre);
-//			reviewer.add(jScrollPaneCommentaire);
+			jScrollPaneCommentaire = new JScrollPaneTexte(" commentaire ? ",  commentaireMembre, true, largeurFenetre);
+			reviewer.add(jScrollPaneCommentaire);
 			JPanel jPanelPseudoEtPasswordEtTitre = new JPanel();
 			jPanelPseudoEtPasswordEtTitre.setLayout(new GridLayout(7,1, 4, 4));
 			jPanelPseudo = new JPanelEntree(" pseudo membre ? ", pseudoMembre, largeurFenetre);
@@ -510,11 +568,11 @@ public class IHM {
 					noteMembreAvis = jPanelNote.getEntree();
 					commentaireMembre = jScrollPaneCommentaire.getTexte();
 					if (type.equals("livre"))
-						metier.reviewOpinionBook(pseudoMembre, passwordMembre, titreLivre, pseudoMembre2, new Float(noteMembreAvis));
+						metier.reviewOpinionBook(pseudoMembre, passwordMembre, titreLivre, pseudoMembre2,commentaireMembre, new Float(noteMembreAvis));
 					    JOptionPane.showMessageDialog(fenetreInteraction, "Success ajout NoteReviewBook :   ");
 
 					if (type.equals("film"))
-						metier.reviewOpinionFilm(pseudoMembre, passwordMembre, titreLivre, pseudoMembre2, new Float(noteMembreAvis));
+						metier.reviewOpinionFilm(pseudoMembre, passwordMembre, titreLivre, pseudoMembre2,commentaireMembre, new Float(noteMembreAvis));
 					
 				}
 				catch (Exception exception) {
