@@ -551,7 +551,7 @@ public class IHM {
 			reviewer.setVisible(false);
 			fenetreInteraction.getContentPane().removeAll();
 			fenetreInteraction.repaint();
-			fenetreInteraction.setSize(largeurFenetre + 100, 320);
+			fenetreInteraction.setSize(largeurFenetre + 100, 570);
 			fenetreInteraction.getContentPane().add(reviewer);
 			reviewer.setVisible(true);			
 			fenetreInteraction.setVisible(true);			
