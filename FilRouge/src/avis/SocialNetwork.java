@@ -36,18 +36,16 @@ import exception.NotMember;
  */
 
 public class SocialNetwork {
-	
+
 	private LinkedList <Film> films;
 	private LinkedList <Book> books;
-	private LinkedList <Item> items;
 	private LinkedList <Member> members;
-	private LinkedList<Review> reviews;
-    private Film film;
-    private Book book;
-    private Member member;
-    private Member member2;
-    private Review review;
-	private float tempNoteReview;
+	private Film film;
+	private Book book;
+	private Member member;
+	private Member member2;
+	private Review review;
+
 
 	/**
 	 * constructeur de <i>SocialNetwok</i> 
@@ -58,7 +56,7 @@ public class SocialNetwork {
 		films = new LinkedList<Film>();
 		books = new LinkedList<Book>();
 		members = new LinkedList<Member>();
-		
+
 	}
 
 	/**
@@ -109,8 +107,8 @@ public class SocialNetwork {
 	public void addMember(String pseudo, String password, String profil) throws BadEntry, MemberAlreadyExists  {
 		Member newMember = new Member (pseudo, password, profil);
 		for (Member m : members) {
-			 if (m.getPseudo().equals(newMember.getPseudo()))
-			 throw new MemberAlreadyExists();
+			if (m.getPseudo().equals(newMember.getPseudo()))
+				throw new MemberAlreadyExists();
 		}
 		members.add(newMember);
 	}
@@ -143,15 +141,15 @@ public class SocialNetwork {
 	 */
 	public void addItemFilm(String pseudo, String password, String titre, String genre, String realisateur, String scenariste, int duree) throws BadEntry, NotMember, ItemFilmAlreadyExists {
 		Film newFilm = new Film(titre, genre, realisateur, scenariste, duree);
-		 for (Film m : films) {
-		 if (m.getTitre().equals(newFilm.getTitre())|| m.getRealisateur().equals(newFilm.getRealisateur()))
-		 throw new ItemFilmAlreadyExists();
-		 	 		 
-		 }	 
-		 
-			 films.add(newFilm);
-			 //items.add(newFilm);
-		
+		for (Film m : films) {
+			if (m.getTitre().equals(newFilm.getTitre())|| m.getRealisateur().equals(newFilm.getRealisateur()))
+				throw new ItemFilmAlreadyExists();
+
+		}	 
+
+		films.add(newFilm);
+		//items.add(newFilm);
+
 	}
 
 	/**
@@ -180,14 +178,14 @@ public class SocialNetwork {
 	 */
 	public void addItemBook(String pseudo, String password, String titre, String genre, String auteur, int nbPages) throws  BadEntry, NotMember, ItemBookAlreadyExists{
 		Book newBook = new Book(titre, genre, auteur, nbPages);
-		 for (Book m : books) {
-		 if (m.getTitre().equals(newBook.getTitre()) || m.getAuteur().equals(newBook.getAuteur()))
-		 throw new ItemBookAlreadyExists();		
-		 
-		 }
-		 //items.add(newBook);
-		 books.add(newBook);
-		 
+		for (Book m : books) {
+			if (m.getTitre().equals(newBook.getTitre()) || m.getAuteur().equals(newBook.getAuteur()))
+				throw new ItemBookAlreadyExists();		
+
+		}
+		//items.add(newBook);
+		books.add(newBook);
+
 	}	 
 
 	/**
@@ -197,12 +195,12 @@ public class SocialNetwork {
 	public Film getFilm(String titre){
 		for(Film film:films){
 			if(film.getTitre().equals(titre))
-			return film;			
+				return film;			
 		}
 		return null;
-		
+
 	}
-	
+
 	/**
 	 * @return un livre
 	 * 
@@ -210,36 +208,36 @@ public class SocialNetwork {
 	public Book getBook(String titre){
 		for(Book book:books){
 			if(book.getTitre().equals(titre))
-			return book;			
+				return book;			
 		}
 		return null;
-		
+
 	}
-	
+
 	/**
 	 * @return un membre
 	 * 
 	 */
-	
+
 	public Member getMember(String pseudo){
 		for(Member member:members){
 			if(member.getPseudo().equals(pseudo))
-			return member;			
+				return member;			
 		}
 		return null;
-		
+
 	}
-	
-	
-	
-//	public Review getReview(int id) {
-//		for(Review review:reviews){
-//			if(review.getId()==id)
-//				return review;			
-//		}
-//		return null;
-//		
-//	}
+
+
+
+	//	public Review getReview(int id) {
+	//		for(Review review:reviews){
+	//			if(review.getId()==id)
+	//				return review;			
+	//		}
+	//		return null;
+	//		
+	//	}
 
 	public void setReview(Review review) {
 		this.review = review;
@@ -263,33 +261,41 @@ public class SocialNetwork {
 		film = getFilm(nom);
 		book = getBook(nom);
 		if(film !=null)
-		result.add(film.toString());
+			result.add(film.toString());
 		if(book !=null)
-		result.add(book.toString());
+			result.add(book.toString());
 		return result;
 	}
 
+	/**
+	 * Consulter les items du <i>SocialNetwork</i> par mot clé
+	 * 
+	 * @param nom son nom (eg. titre d'un film, d'un livre ou les deux)
+	 * @return LinkedList <String> : la liste des représentations de tous les items qui contient ce mot 
+	 * Cette représentation contiendra la note de l'item s'il a été noté.
+	 * (une liste vide si aucun item ne correspond) 
+	 */	
 
-public LinkedList <String> consultFilmsEtLivres(String nom) throws BadEntry {
-		
-	LinkedList<String> result = new LinkedList<String>();
-	if(nom==null || nom.length()<1)
-		throw new BadEntry("le nom est obligatoire et contient au moins 1 caractère");	
-		
-		for(Film film : films){  //recherche d'un titre correspondant à la recherche dans la liste d'items
-			if (film.getTitre().trim().toLowerCase().startsWith(nom)){
-				result.add("Le film: "+film.getTitre()+"------- Note Moyenne= " +film.note());
+	public LinkedList <String> consultFilmsEtLivres(String nom) throws BadEntry {
+
+		LinkedList<String> result = new LinkedList<String>();
+		if(nom==null || nom.length()<1)
+			throw new BadEntry("le nom est obligatoire et contient au moins 1 caractère");	
+		for(Film film : films){ 
+			if (film.getTitre().trim().toLowerCase().contains(nom)){
+				result.add(film.toStringRecherche());
+			}
+
 		}
-	
-	}
-		for(Book book : books){  //recherche d'un titre correspondant à la recherche dans la liste d'items
-			if (book.getTitre().trim().toLowerCase().startsWith(nom)){
-				result.add("Le livre: "+book.getTitre()+"------- Note Moyenne= " +film.note());
+		for(Book book : books){ 
+			if (book.getTitre().trim().toLowerCase().contains(nom)){
+				result.add(book.toStringRecherche());
+			}
+
 		}
-	
-	}
 		return result;
-}
+	}
+
 	/**
 	 * Donner son opinion sur un item film.
 	 * Ajoute l'opinion de ce membre sur ce film au <i>SocialNetwork</i> 
@@ -322,18 +328,18 @@ public LinkedList <String> consultFilmsEtLivres(String nom) throws BadEntry {
 		if(member==null)
 			throw new NotMember("Member n'existe pas");
 		Review review = member.getItemReview(film);
-    	if(review==null){
-    		Review newReview = new Review(note, commentaire,film, member);
-    		film.addReview(newReview);
-    		member.addReview(newReview);
-    	}
-    	else{
-    		review.updateReview(note, commentaire);
+		if(review==null){
+			Review newReview = new Review(note, commentaire,film, member);
+			film.addReview(newReview);
+			member.addReview(newReview);
+		}
+		else{
+			review.updateReview(note, commentaire);
 			Review oldReviewFilm = film.getReview(member);
 			oldReviewFilm.updateReview(note, commentaire);
 		}
 
-    	return film.note();
+		return film.note();
 	}
 
 
@@ -370,58 +376,87 @@ public LinkedList <String> consultFilmsEtLivres(String nom) throws BadEntry {
 		if(member==null)
 			throw new NotMember("Member n'existe pas");
 		Review review = member.getItemReview(book);
-    	if(review==null){
-    		Review newReview = new Review(note, commentaire,book, member);
-    		book.addReview(newReview);
-    		member.addReview(newReview);
-    	}
-    	else{
-    		review.updateReview(note, commentaire);
+		if(review==null){
+			Review newReview = new Review(note, commentaire,book, member);
+			book.addReview(newReview);
+			member.addReview(newReview);
+		}
+		else{
+			review.updateReview(note, commentaire);
 			Review oldReviewFilm = book.getReview(member);
 			oldReviewFilm.updateReview(note, commentaire);
-    	}
-    	return book.note();
+		}
+		return book.note();
 	}
-	
-	
+
+
 	/**
-	 * @param pseudo1
-	 * @param password
-	 * @param titre
-	 * @param pseudo2
-	 * @param commentaire
-	 * @param note
-	 * @return
+	 * Donner une opinion sur un avis existant (avis sur un livre)
+	 * @param pseudo1 pseudo du membre qui va donner l'avis
+	 * @param password mot de passe du membre
+	 * @param titre Titre du livre
+	 * @param pseudo2 pseudo du membre qui a donné un avis sur le livre
+	 * @param commentaire les commentaires
+	 * @param note la note attribuée
+	 * @return la moyenne 
+	 * @throws BadEntry
+	 * @throws NotItem 
+	 * @throws NotMember
 	 */
-	public float reviewOpinionBook(String pseudo1,String password,String titre,String pseudo2,String commentaire,float note)
+	public float reviewOpinionBook(String pseudo1,String password,String titre,String pseudo2,String commentaire,float note) throws BadEntry, NotItem, NotMember
 	{
 		book = getBook(titre);
+		if(book==null)
+			throw new NotItem("Book n'existe pas");
 		member = getMember(pseudo1);
+		if(member==null)
+			throw new NotMember("Member n'existe pas");
 		member2 = getMember(pseudo2);
+		if(member2==null)
+			throw new NotMember("Member n'existe pas");
 		Review review = book.getReview(member2);
 		if(review!=null){
 			ReviewOfReview review2 = new ReviewOfReview(member,commentaire,note);
 			review.addReview(review2);		
 		}
 		else{
-			System.out.println("exception");			
+			System.out.println("exception: review n'existe pas");			
 		}		
 		return review.getMoyenne();			
 	}
-	
-    /////Review opinion film
-	public float reviewOpinionFilm(String pseudo1,String password,String titre,String pseudo2,String commentaire,float note)
+
+
+	/**
+	 * Donner une opinion sur un avis existant (avis sur un film)
+	 * @param pseudo1 pseudo du membre qui va donner l'avis
+	 * @param password mot de passe du membre
+	 * @param titre Titre du film
+	 * @param pseudo2 pseudo du membre qui a donné un avis sur le film
+	 * @param commentaire les commentaires
+	 * @param note la note attribuée
+	 * @return la moyenne 
+	 * @throws BadEntry
+	 * @throws NotItem 
+	 * @throws NotMember
+	 */
+	public float reviewOpinionFilm(String pseudo1,String password,String titre,String pseudo2,String commentaire,float note) throws BadEntry,NotItem, NotMember
 	{
 		film = getFilm(titre);
+		if(film==null)
+			throw new NotItem("Book n'existe pas");
 		member = getMember(pseudo1);
+		if(member==null)
+			throw new NotMember("Member n'existe pas");
 		member2 = getMember(pseudo2);
+		if(member2==null)
+			throw new NotMember("Member n'existe pas");
 		Review review = film.getReview(member2);
 		if(review!=null){		
 			ReviewOfReview review2 = new ReviewOfReview(member,commentaire,note);
 			review.addReview(review2);		
 		}
 		else{
-			System.out.println("exception");			
+			System.out.println("exception: review n'existe pas");			
 		}		
 		return review.getMoyenne();						
 	}
@@ -438,10 +473,5 @@ public LinkedList <String> consultFilmsEtLivres(String nom) throws BadEntry {
 		int nbMember=nbMembers();
 		return "Social Network contient "+nbMember+" membres et "+nbFilm+" films et "+nbBook+" livres";
 	}
-
-
-
-
-
 
 }

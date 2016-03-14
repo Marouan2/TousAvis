@@ -20,7 +20,7 @@ public class TestsAddItemBook {
 		//Initialisation de la liste avec 
 		try {
 			sn.addMember("marouan", "marouan", "profil");
-			sn.addItemBook("marouan", "marouan", "Mes Souvenirs à Brest", "roman", "bernard", 617);
+			sn.addItemBook("marouan", "marouan", "Mes Souvenirs à Brest", "roman", "bernard", 250);
 			nbBooks = sn.nbBooks();
 		} 
 		catch (BadEntry e) {}
@@ -33,7 +33,7 @@ public class TestsAddItemBook {
 		//// Le pseudo n'est pas instancié 
 		nbBooks = sn.nbBooks();
 		try {
-			sn.addItemBook(null, "marouan", "Mes Souvenirs à Brest", "roman", "bernard", 617);
+			sn.addItemBook(null, "marouan", "Mes Souvenirs à Brest", "roman", "bernard", 250);
 			System.err.println("Erreur 2.1.1 : l'ajout d'un Book dont le pseudo n'est pas instancié est accepté.");
 			
 		} catch (BadEntry e) {			
@@ -48,7 +48,7 @@ public class TestsAddItemBook {
 		
 		/// Le pseudo a moins de 1 caractère autre que des espaces
 		try {
-			sn.addItemBook(" ", "marouan", "Mes Souvenirs à Brest", "roman", "bernard", 617);
+			sn.addItemBook(" ", "marouan", "Mes Souvenirs à Brest", "roman", "bernard", 250);
 			System.err.println("Erreur 2.2.1 : l'ajout d'un Book dont le pseudo ne contient que des espaces est accepté.");
 			
 		} catch (BadEntry e) {
@@ -62,7 +62,7 @@ public class TestsAddItemBook {
 		
 		/// Le password n'est pas instancié
 		try {
-			sn.addItemBook("marouan", "", "Mes Souvenirs à Brest", "roman", "bernard", 617);
+			sn.addItemBook("marouan", "", "Mes Souvenirs à Brest", "roman", "bernard", 250);
 			System.err.println("Erreur 2.3.1 : l'ajout d'un Book dont le password n'est pas instancié est accepté.");
 		} catch (BadEntry e) {
 			if(sn.nbBooks() != nbBooks){
@@ -76,7 +76,7 @@ public class TestsAddItemBook {
 		
 		///Le password a moins de 4 caractère autre que des espaces
 		try {
-			sn.addItemBook("marouan", " mar ", "Mes Souvenirs à Brest", "roman", "bernard", 617);
+			sn.addItemBook("marouan", " mar ", "Mes Souvenirs à Brest", "roman", "bernard", 250);
 			System.err.println("Erreur 2.4.1 : l'ajout d'un Book dont le password contient moins de 4 caractères autre que des espaces est accepté.");
 		} catch (BadEntry e) {
 			if(sn.nbBooks() != nbBooks){
@@ -88,7 +88,7 @@ public class TestsAddItemBook {
 		
 		/// Le titre est non instancié
 		try {
-			sn.addItemBook("marouan", "marouan", "", "roman", "bernard", 617);
+			sn.addItemBook("marouan", "marouan", "", "roman", "bernard", 250);
 			System.err.println("Erreur 2.5.1 : l'ajout d'un Book dont le titre n'est pas instancié est accepté.");
 		} catch (BadEntry e) {
 			if(sn.nbBooks() != nbBooks){
@@ -101,7 +101,7 @@ public class TestsAddItemBook {
 		
 		/// Le genre est non instancié
 		try {
-			sn.addItemBook("marouan", "marouan", "Mes Souvenirs à Brest", "", "bernard", 617);
+			sn.addItemBook("marouan", "marouan", "Mes Souvenirs à Brest", "", "bernard", 250);
 			System.err.println("Erreur 2.7.1 : l'ajout d'un Book dont le genre n'est pas instancié est accepté.");
 		} catch (BadEntry e) {
 			if(sn.nbBooks() != nbBooks){
@@ -113,7 +113,7 @@ public class TestsAddItemBook {
 		
 		/// Le realisateur non instancié
 		try {
-			sn.addItemBook("marouan", "marouan", "Mes Souvenirs à Brest", "roman", null, 617);
+			sn.addItemBook("marouan", "marouan", "Mes Souvenirs à Brest", "roman", null, 250);
 			System.err.println("Erreur 2.8.1 : l'ajout d'un Book dont l'auteur n'est pas instancié est accepté.");
 		} catch (BadEntry e) {
 			if(sn.nbBooks() != nbBooks){
@@ -125,7 +125,7 @@ public class TestsAddItemBook {
 		
 		/// Le nombre de pages est négatif
 		try {
-			sn.addItemBook("marouan", "marouan", "Mes Souvenirs à Brest", "roman", "bernard", -617);
+			sn.addItemBook("marouan", "marouan", "Mes Souvenirs à Brest", "roman", "bernard", -250);
 			System.err.println("Erreur 2.9.1 : l'ajout d'un Book dont le nombre de pages est négatif est accepté.");
 		} catch (BadEntry e) {
 			if(sn.nbBooks() != nbBooks){
@@ -139,7 +139,7 @@ public class TestsAddItemBook {
 
 		/// Le pseudo est inconnu 
 		try {
-			sn.addItemBook("Robert", "marouan", "Mes Souvenirs à Brest", "roman", "bernard", 617);
+			sn.addItemBook("Robert", "marouan", "Mes Souvenirs à Brest", "roman", "bernard", 250);
 			System.err.println("Erreur 3.1.1 : l'ajout d'un Book avec un pseudo inconnu est autorisé.");
 		}
 		catch (NotMember e) {
@@ -152,7 +152,7 @@ public class TestsAddItemBook {
 		
 		/// Le mot de passe du pseudo n'est pas le bon
 		try {
-			sn.addItemBook("marouan", "marou", "Mes Souvenirs à Brest", "roman", "bernard", 617);
+			sn.addItemBook("marouan", "marou", "Mes Souvenirs à Brest", "roman", "bernard", 250);
 			System.err.println("Erreur 3.2.1 : l'ajout d'un Book avec un mauvais mot de passe est autorisé.");
 		}
 		catch (NotMember e) {
@@ -167,7 +167,7 @@ public class TestsAddItemBook {
 
 		/// Le titre existe déjà
 		try {
-			sn.addItemBook("marouan", "marouan", "Mes Souvenirs à Brest", "roman", "bernard", 617);
+			sn.addItemBook("marouan", "marouan", "Mes Souvenirs à Brest", "roman", "bernard", 250);
 			System.err.println("Erreur 3.3.1 : l'ajout d'un Book avec un titre déjà existant est autorisé.");
 		}
 		catch (ItemBookAlreadyExists e) {

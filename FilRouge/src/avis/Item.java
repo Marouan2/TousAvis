@@ -62,10 +62,10 @@ public class Item {
     	return note/reviews.size();
     } 
     
-       
+    
 	@Override
 	public String toString() {
-		return "Titre "+this.titre+", de genre "+this.genre+" " ;
+		return "Titre: "+this.titre+", de genre: "+this.genre+" " ;
 	}
 
 }

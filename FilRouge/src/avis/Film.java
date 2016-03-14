@@ -43,6 +43,13 @@ public class Film extends Item {
 	public void setDuree(int duree) {
 		this.duree = duree;
 	}
+	
+	public String toStringRecherche() {
+		if(super.getReviews().size()==0)
+			return "Le film de "+super.toString()+", ce film n'est pas noté";
+		return "Le film de "+super.toString()+", noté:  "+this.note()+" ";
+	}
+	
 
 	@Override
 	public String toString() {

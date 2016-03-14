@@ -19,7 +19,7 @@ public class TestsReviewItemBook {
 			//Initialisation de la base avec 
 			try {
 				sn.addMember("marouan", "marouan", "profil");
-				sn.addItemBook("marouan", "marouan", "Mes Souvenirs à Brest", "roman", "bernard", 617);
+				sn.addItemBook("marouan", "marouan", "Mes Souvenirs à Brest", "roman", "bernard", 250);
 			} 
 			catch (BadEntry e) {}
 			catch (NotMember e) {}
