@@ -11,7 +11,7 @@ public class Book extends Item {
 		if(auteur==null)
 			throw new BadEntry("la scenariste est obligatoire");
 		if(nbPages<0)
-			throw new BadEntry("le nombre des pages être positive");
+			throw new BadEntry("le nombre des pages doit être positive");
 		this.auteur = auteur;
 		this.nbPages = nbPages;
 		

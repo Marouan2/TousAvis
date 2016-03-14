@@ -13,7 +13,7 @@ public class Item {
 		if(titre==null || titre.length()<1)
 			throw new BadEntry("le titre est obligatoire et contient au moins 1 caractère");
 		if(genre==null)
-			throw new BadEntry("le titre est obligatoire");
+			throw new BadEntry("le genre est obligatoire");
 		this.titre = titre;
 		this.genre = genre;
 		reviews = new LinkedList<Review>();

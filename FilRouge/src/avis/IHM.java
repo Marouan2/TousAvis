@@ -569,8 +569,6 @@ public class IHM {
 					commentaireMembre = jScrollPaneCommentaire.getTexte();
 					if (type.equals("livre"))
 						metier.reviewOpinionBook(pseudoMembre, passwordMembre, titreLivre, pseudoMembre2,commentaireMembre, new Float(noteMembreAvis));
-					    JOptionPane.showMessageDialog(fenetreInteraction, "Success ajout NoteReviewBook :   ");
-
 					if (type.equals("film"))
 						metier.reviewOpinionFilm(pseudoMembre, passwordMembre, titreLivre, pseudoMembre2,commentaireMembre, new Float(noteMembreAvis));
 					

@@ -105,9 +105,19 @@ public class SocialNetwork {
 	 * 
 	 */
 	public void addMember(String pseudo, String password, String profil) throws BadEntry, MemberAlreadyExists  {
+		if(pseudo == null)
+			throw new BadEntry("Erreur: pseudo non instancié");
+		if(pseudo.trim().length() < 1)
+			throw new BadEntry("Erreur: Le pseudo contient moins de 1 caractère autre que des espaces");
+		if(password == null)
+			throw new BadEntry("Erreur: password non instancié");
+		if(password.trim().length() < 4)
+			throw new BadEntry("Erreur: Le password contient moins de 4 caractères autre que des espaces");
+		if(profil == null)
+			throw new BadEntry("Erreur: profil non instancié");
 		Member newMember = new Member (pseudo, password, profil);
 		for (Member m : members) {
-			if (m.getPseudo().equals(newMember.getPseudo()))
+			if (m.getPseudo().equalsIgnoreCase(newMember.getPseudo().trim()))
 				throw new MemberAlreadyExists();
 		}
 		members.add(newMember);
@@ -140,9 +150,29 @@ public class SocialNetwork {
 	 * 
 	 */
 	public void addItemFilm(String pseudo, String password, String titre, String genre, String realisateur, String scenariste, int duree) throws BadEntry, NotMember, ItemFilmAlreadyExists {
+		if(pseudo == null)
+			throw new BadEntry("Erreur: pseudo non instancie");
+		if(pseudo.trim().length() < 1)
+			throw new BadEntry("Erreur: Le pseudo contient moins de 1 caractere autre que des espaces");
+		if(password == null)
+			throw new BadEntry("Erreur: password non instancie");
+		if(password.trim().length() < 4)
+			throw new BadEntry("Erreur: Le password contient moins de 4 caracteres autre que des espaces");
+		if(titre == null)
+			throw new BadEntry("Erreur: titre non instancie");
+		if(titre.trim().length() < 1)
+			throw new BadEntry("Erreur: Le titre contient moins de 1 caractere autre que des espaces");
+		if(genre == null)
+			throw new BadEntry("Erreur: genre non instancie");
+		if(realisateur == null)
+			throw new BadEntry("Erreur: realisateur non instancie");
+		if(scenariste == null)
+			throw new BadEntry("Erreur: scenariste non instancie");
+		if(duree <= 0)
+			throw new BadEntry("Erreur: duree negative");
 		Film newFilm = new Film(titre, genre, realisateur, scenariste, duree);
 		for (Film m : films) {
-			if (m.getTitre().equals(newFilm.getTitre())|| m.getRealisateur().equals(newFilm.getRealisateur()))
+			if (m.getTitre().equalsIgnoreCase(newFilm.getTitre()))
 				throw new ItemFilmAlreadyExists();
 
 		}	 
@@ -177,9 +207,27 @@ public class SocialNetwork {
 	 * 
 	 */
 	public void addItemBook(String pseudo, String password, String titre, String genre, String auteur, int nbPages) throws  BadEntry, NotMember, ItemBookAlreadyExists{
+		if(pseudo == null)
+			throw new BadEntry("Erreur: pseudo non instancié");
+		if(pseudo.trim().length() < 1)
+			throw new BadEntry("Erreur: Le pseudo contient moins de 1 caractère autre que des espaces");
+		if(password == null)
+			throw new BadEntry("Erreur: password non instancié");
+		if(password.trim().length() < 4)
+			throw new BadEntry("Erreur: Le password contient moins de 4 caractères autre que des espaces");
+		if(titre == null)
+			throw new BadEntry("Erreur: titre non instancié");
+		if(titre.trim().length() < 1)
+			throw new BadEntry("Erreur: Le titre contient moins de 1 caractère autre que des espaces");
+		if(genre == null)
+			throw new BadEntry("Erreur: genre non instancié");
+		if(auteur == null)
+			throw new BadEntry("Erreur: auteur non instancié");
+		if(nbPages <= 0)
+			throw new BadEntry("Erreur: nombres Pages négative");
 		Book newBook = new Book(titre, genre, auteur, nbPages);
 		for (Book m : books) {
-			if (m.getTitre().equals(newBook.getTitre()) || m.getAuteur().equals(newBook.getAuteur()))
+			if (m.getTitre().equalsIgnoreCase(newBook.getTitre()))
 				throw new ItemBookAlreadyExists();		
 
 		}
@@ -194,7 +242,7 @@ public class SocialNetwork {
 	 */
 	public Film getFilm(String titre){
 		for(Film film:films){
-			if(film.getTitre().equals(titre))
+			if(film.getTitre().equalsIgnoreCase(titre))
 				return film;			
 		}
 		return null;
@@ -207,7 +255,7 @@ public class SocialNetwork {
 	 */
 	public Book getBook(String titre){
 		for(Book book:books){
-			if(book.getTitre().equals(titre))
+			if(book.getTitre().equalsIgnoreCase(titre))
 				return book;			
 		}
 		return null;
@@ -221,23 +269,27 @@ public class SocialNetwork {
 
 	public Member getMember(String pseudo){
 		for(Member member:members){
-			if(member.getPseudo().equals(pseudo))
+			if(member.getPseudo().equalsIgnoreCase(pseudo))
 				return member;			
 		}
 		return null;
 
 	}
+	
+	public Member getMember(String pseudo, String password) throws NotMember{
+		for (Member member : members) {
+			if( member.getPseudo().equalsIgnoreCase(pseudo)){
+				if(member.getPassword().equalsIgnoreCase(password)){
+					return member;
+				}
+				else{
+					throw new NotMember("le pseudo et le password ne correspondent pas");
+				}
+			}
+		}
 
-
-
-	//	public Review getReview(int id) {
-	//		for(Review review:reviews){
-	//			if(review.getId()==id)
-	//				return review;			
-	//		}
-	//		return null;
-	//		
-	//	}
+		throw new NotMember("aucun membre inscrit avec ces identifiants");
+	}
 
 	public void setReview(Review review) {
 		this.review = review;
@@ -256,8 +308,10 @@ public class SocialNetwork {
 	 */	
 	public LinkedList <String> consultItems(String nom) throws BadEntry {
 		LinkedList<String> result = new LinkedList<String>();
-		if(nom==null || nom.length()<1)
-			throw new BadEntry("le nom est obligatoire et contient au moins 1 caractère");		
+		if(nom == null)
+			throw new BadEntry("Erreur: titre non instancie");
+		if(nom.trim().length() < 1)
+			throw new BadEntry("Erreur: Le titre contient moins de 1 caractere autre que des espaces");	
 		film = getFilm(nom);
 		book = getBook(nom);
 		if(film !=null)
@@ -279,8 +333,11 @@ public class SocialNetwork {
 	public LinkedList <String> consultFilmsEtLivres(String nom) throws BadEntry {
 
 		LinkedList<String> result = new LinkedList<String>();
-		if(nom==null || nom.length()<1)
-			throw new BadEntry("le nom est obligatoire et contient au moins 1 caractère");	
+		if(nom == null)
+			throw new BadEntry("Erreur: titre non instancie");
+		if(nom.trim().length() < 1)
+			throw new BadEntry("Erreur: Le titre contient moins de 1 caractere autre que des espaces");	
+		
 		for(Film film : films){ 
 			if (film.getTitre().trim().toLowerCase().contains(nom)){
 				result.add(film.toStringRecherche());
@@ -321,10 +378,28 @@ public class SocialNetwork {
 	 * @return la note moyenne des notes sur ce film  
 	 */
 	public float reviewItemFilm(String pseudo, String password, String titre, float note, String commentaire) throws BadEntry, NotMember, NotItem {
+		if(pseudo == null)
+			throw new BadEntry("Erreur: pseudo non instancie");
+		if(pseudo.trim().length() < 1)
+			throw new BadEntry("Erreur: Le pseudo contient moins de 1 caractere autre que des espaces");
+		if(password == null)
+			throw new BadEntry("Erreur: password non instancie");
+		if(password.trim().length() < 4)
+			throw new BadEntry("Erreur: Le password contient moins de 4 caracteres autre que des espaces");
+		if(titre == null)
+			throw new BadEntry("Erreur: titre non instancie");
+		if(titre.trim().length() < 1)
+			throw new BadEntry("Erreur: Le titre contient moins de 1 caractere autre que des espaces");
+		if(commentaire == null)
+			throw new BadEntry("Erreur: commentaire non instancie");
+		if(note < 0 || note > 5)
+			throw new BadEntry("Erreur: note non comprise entre 0.0 et 5.0");
+		
 		film = getFilm(titre);
 		if(film==null)
 			throw new NotItem("Film n'existe pas");
 		member = getMember(pseudo);
+		this.getMember(pseudo, password);
 		if(member==null)
 			throw new NotMember("Member n'existe pas");
 		Review review = member.getItemReview(film);
@@ -369,10 +444,28 @@ public class SocialNetwork {
 	 * @return la note moyenne des notes sur ce livre
 	 */
 	public float reviewItemBook(String pseudo, String password, String titre, float note, String commentaire) throws BadEntry, NotMember, NotItem {
+		if(pseudo == null)
+			throw new BadEntry("Erreur: pseudo non instancie");
+		if(pseudo.trim().length() < 1)
+			throw new BadEntry("Erreur: Le pseudo contient moins de 1 caractere autre que des espaces");
+		if(password == null)
+			throw new BadEntry("Erreur: password non instancie");
+		if(password.trim().length() < 4)
+			throw new BadEntry("Erreur: Le password contient moins de 4 caracteres autre que des espaces");
+		if(titre == null)
+			throw new BadEntry("Erreur: titre non instancie");
+		if(titre.trim().length() < 1)
+			throw new BadEntry("Erreur: Le titre contient moins de 1 caractere autre que des espaces");
+		if(commentaire == null)
+			throw new BadEntry("Erreur: commentaire non instancie");
+		if(note < 0 || note > 5)
+			throw new BadEntry("Erreur: note non comprise entre 0.0 et 5.0");
+		
 		book = getBook(titre);
 		if(book==null)
 			throw new NotItem("Book n'existe pas");
 		member = getMember(pseudo);
+		this.getMember(pseudo, password);
 		if(member==null)
 			throw new NotMember("Member n'existe pas");
 		Review review = member.getItemReview(book);
@@ -403,8 +496,24 @@ public class SocialNetwork {
 	 * @throws NotItem 
 	 * @throws NotMember
 	 */
-	public float reviewOpinionBook(String pseudo1,String password,String titre,String pseudo2,String commentaire,float note) throws BadEntry, NotItem, NotMember
-	{
+	public float reviewOpinionBook(String pseudo1,String password,String titre,String pseudo2,String commentaire,float note) throws BadEntry, NotItem, NotMember{		
+		if(pseudo1 == null || pseudo2 == null)
+			throw new BadEntry("Erreur: pseudo non instancie");
+		if(pseudo1.trim().length() < 1 || pseudo2.trim().length() < 1)
+			throw new BadEntry("Erreur: Le pseudo contient moins de 1 caractere autre que des espaces");
+		if(password == null)
+			throw new BadEntry("Erreur: password non instancie");
+		if(password.trim().length() < 4)
+			throw new BadEntry("Erreur: Le password contient moins de 4 caracteres autre que des espaces");
+		if(titre == null)
+			throw new BadEntry("Erreur: titre non instancie");
+		if(titre.trim().length() < 1)
+			throw new BadEntry("Erreur: Le titre contient moins de 1 caractere autre que des espaces");
+		if(commentaire == null)
+			throw new BadEntry("Erreur: commentaire non instancie");
+		if(note < 0 || note > 5)
+			throw new BadEntry("Erreur: note non comprise entre 0.0 et 5.0");
+		this.getMember(pseudo1, password);
 		book = getBook(titre);
 		if(book==null)
 			throw new NotItem("Book n'existe pas");
@@ -439,8 +548,25 @@ public class SocialNetwork {
 	 * @throws NotItem 
 	 * @throws NotMember
 	 */
-	public float reviewOpinionFilm(String pseudo1,String password,String titre,String pseudo2,String commentaire,float note) throws BadEntry,NotItem, NotMember
-	{
+	public float reviewOpinionFilm(String pseudo1,String password,String titre,String pseudo2,String commentaire,float note) throws BadEntry,NotItem, NotMember{
+		if(pseudo1 == null || pseudo2 == null)
+			throw new BadEntry("Erreur: pseudo non instancie");
+		if(pseudo1.trim().length() < 1 || pseudo2.trim().length() < 1)
+			throw new BadEntry("Erreur: Le pseudo contient moins de 1 caractere autre que des espaces");
+		if(password == null)
+			throw new BadEntry("Erreur: password non instancie");
+		if(password.trim().length() < 4)
+			throw new BadEntry("Erreur: Le password contient moins de 4 caracteres autre que des espaces");
+		if(titre == null)
+			throw new BadEntry("Erreur: titre non instancie");
+		if(titre.trim().length() < 1)
+			throw new BadEntry("Erreur: Le titre contient moins de 1 caractere autre que des espaces");
+		if(commentaire == null)
+			throw new BadEntry("Erreur: commentaire non instancie");
+		if(note < 0 || note > 5)
+			throw new BadEntry("Erreur: note non comprise entre 0.0 et 5.0");
+		this.getMember(pseudo1, password);
+
 		film = getFilm(titre);
 		if(film==null)
 			throw new NotItem("Book n'existe pas");

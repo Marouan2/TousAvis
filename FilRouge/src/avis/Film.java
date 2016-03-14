@@ -10,9 +10,9 @@ public class Film extends Item {
 	public Film(String titre, String genre, String realisateur, String scenariste, int duree) throws BadEntry {
 		super(titre, genre);
 		if(realisateur==null)
-			throw new BadEntry("la réalisateur est obligatoire");
+			throw new BadEntry("le réalisateur est obligatoire");
 		if(scenariste==null)
-			throw new BadEntry("la scenariste est obligatoire");
+			throw new BadEntry("le scenariste est obligatoire");
 		if(duree<0)
 			throw new BadEntry("la duree doit être positive");
 		this.realisateur = realisateur;
